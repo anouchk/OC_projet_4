@@ -38,6 +38,16 @@ class LouvreController extends AbstractController
     }
 
     /**
+     * @Route("/recapitulatif", name="recap")
+     */
+    public function recap()
+    {
+        return $this->render('louvre/recap.html.twig', [
+            'controller_name' => 'LouvreController',
+        ]);
+    }
+
+    /**
      * @Route("/infospratiques", name="infospratiques")
      */
     public function infosPratiques()
