@@ -15,12 +15,14 @@
 	    </tr>
 	  </thead>
 	  <tbody>
+	  	{% for billet in billets %}
 	    <tr class="table-active">
-	      <th scope="row">Active</th>
-	      <td>Column content</td>
-	      <td>Column content</td>
-	      <td>Column content</td>
+	      <td>{{billet.nom}}</td>
+	      <td>{{billet.prenom}}</td>
+	      <td>{{billet.type}}</td>
+	      <td>{{billet.prix}}</td>
 	    </tr>
+	    {% endfor %}
 	  </tbody>
 	</table> 
 

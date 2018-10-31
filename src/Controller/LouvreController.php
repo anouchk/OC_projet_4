@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Billet;
 
 class LouvreController extends AbstractController
 {
@@ -42,8 +43,12 @@ class LouvreController extends AbstractController
      */
     public function recap()
     {
+        $repo = $this->getDoctrine()->getRepository(Billet::class);
+        // là il faudrait que je fasse find by id_commande
+        $billets = $repo->findAll();
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
+            'billets' => $billets
         ]);
     }
 
