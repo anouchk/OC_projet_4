@@ -57,7 +57,8 @@ class LouvreController extends AbstractController
 
     public function checkoutAction()
     {
-        \Stripe\Stripe::setApiKey("SK_PUBLIC_TEST_API");
+        \Stripe\Stripe::setApiKey("pk_test_DMiADShJSyoZEBEHabm71UC1
+");
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
         // Create a charge: this will charge the user's card
