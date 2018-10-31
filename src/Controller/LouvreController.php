@@ -57,8 +57,7 @@ class LouvreController extends AbstractController
 
     public function checkoutAction()
     {
-        \Stripe\Stripe::setApiKey("pk_test_DMiADShJSyoZEBEHabm71UC1
-");
+        \Stripe\Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
         // Create a charge: this will charge the user's card
@@ -67,7 +66,7 @@ class LouvreController extends AbstractController
                 "amount" => 1000, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
-                "description" => "Paiement Stripe - OpenClassrooms Exemple"
+                "description" => "Paiement Stripe - Réservations Louvre"
             ));
             $this->addFlash("success","Bravo ça marche !");
             return $this->redirectToRoute("recap");
