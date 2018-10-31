@@ -4,6 +4,59 @@
 
     <h1>Salut la billetterie</h1>
 
-    <a href="{{ path('recap') }}" class="btn btn-info">Réserver</a>
+    <p> Billet 1
+
+    <form >
+		<p><label> Nom : </label> <input class="input_large" type="text" name="nom_billet" value="" ></p>
+		<p><label> Prénom : </label> <input class="input_large" type="text" name="prenom_billet" value="" ></p>
+		<p><label> Pays: </label> <input class="input_large" type="text" name="pays_billet" value="" ></p>
+		<p><label> Date de naissance : </label> <input class="input_large" type="text" name="naissance_billet" value="" ></p>
+		<p><label> Type de billet : </label> <input class="input_large" type="text" name="type_billet" value="" ></p>
+		<p><label> Tarif réduit: </label> <input class="input_large" type="text" name="tarif_reduit_billet" value="" ></p>
+		
+		<p><input type="submit" class="btn btn-primary" value="Réserver" ></p>
+	</form>
+	</p>
+
+	<form action="{{ path('recap') }}" method="post">
+	  <fieldset>
+	    <legend>Billet 1</legend>
+	    <div class="form-group">
+	      <label for="">Nom</label>
+	      <input class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Nom" type="email">
+	      
+	    </div>
+	    <div class="form-group">
+	      <label for="">Prénom</label>
+	      <input class="form-control" id="exampleInputPassword1" placeholder="Prénom" type="password">
+	    </div>
+	    <div class="form-group">
+	      <label for="">Pays</label>
+	      <input class="form-control" id="exampleInputEmail1" aria-describedby="Pays" placeholder="Nom" type="email">	      
+	    </div>
+	    <div class="form-group">
+	      <label for="">Date de Naissance</label>
+	      <input class="form-control" id="exampleInputPassword1" placeholder="Date de naissance" type="password">
+	    </div>
+	    <div class="form-group">
+	      <label for="Pays">Type de billet</label>
+	      <select class="form-control" id="Pays">
+	        <option>Journée</option>
+	        <option>Demi-journée (après 14h)</option>
+	      </select>
+	    </div>
+	    <fieldset class="form-group">
+	      <div class="form-check">
+	        <label class="form-check-label">
+	          <input class="form-check-input" value="" checked="" type="checkbox">
+	          Tarif réduit (sur justificatif)
+	        </label>
+	        <small id="emailHelp" class="form-text text-muted">Voici les conditions d'un tarif réduit</small>
+	      </div>
+	    </fieldset>
+	    <input type ="hidden" name="idBillet" value="">
+	    <p><input type="submit" class="btn btn-primary" value="Réserver"></p>
+	  </fieldset>
+	</form>
 
 {% endblock %}
