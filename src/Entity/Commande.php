@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -19,22 +21,22 @@ class Commande
     /**
      * @ORM\Column(type="integer")
      */
-    private $Reference;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $PrixTotal;
-
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $idAcheteur;
+    private $reference;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $dateVisite;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true)
+     */
+    private $billets;
+
+    public function __construct()
+    {
+        $this->billets = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -85,6 +87,37 @@ class Commande
     public function setDateVisite(\DateTimeInterface $dateVisite): self
     {
         $this->dateVisite = $dateVisite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Billet[]
+     */
+    public function getBillets(): Collection
+    {
+        return $this->billets;
+    }
+
+    public function addBillet(Billet $billet): self
+    {
+        if (!$this->billets->contains($billet)) {
+            $this->billets[] = $billet;
+            $billet->setCommande($this);
+        }
+
+        return $this;
+    }
+
+    public function removeBillet(Billet $billet): self
+    {
+        if ($this->billets->contains($billet)) {
+            $this->billets->removeElement($billet);
+            // set the owning side to null (unless already changed)
+            if ($billet->getCommande() === $this) {
+                $billet->setCommande(null);
+            }
+        }
 
         return $this;
     }

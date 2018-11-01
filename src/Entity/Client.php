@@ -26,6 +26,11 @@ class Client
      */
     private $CbNumber;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Commande", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $commande;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,23 @@ class Client
     public function setCbNumber(int $CbNumber): self
     {
         $this->CbNumber = $CbNumber;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(Commande $commande): self
+    {
+        $this->commande = $commande;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $commande->getClient()) {
+            $commande->setClient($this);
+        }
 
         return $this;
     }
