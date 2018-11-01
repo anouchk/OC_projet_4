@@ -19,37 +19,32 @@ class Billet
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Nom;
+    private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Prenom;
+    private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Type;
+    private $type;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $Pays;
+    private $pays;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $DateNaissance;
+    private $dateNaissance;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $TarifReduit;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Tarif;
+    private $tarifReduit;
 
     /**
      * @ORM\Column(type="integer")
