@@ -21,11 +21,6 @@ class Client
      */
     private $mail;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $CbNumber;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -39,18 +34,6 @@ class Client
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getCbNumber(): ?int
-    {
-        return $this->CbNumber;
-    }
-
-    public function setCbNumber(int $CbNumber): self
-    {
-        $this->CbNumber = $CbNumber;
 
         return $this;
     }

@@ -10,7 +10,6 @@
 	      <th scope="col">Nom</th>
 	      <th scope="col">Prénom</th>
 	      <th scope="col">Type de billet</th>
-	      <th scope="col">Prix</th>
 	      
 	    </tr>
 	  </thead>
@@ -20,7 +19,6 @@
 	      <td>{{billet.nom}}</td>
 	      <td>{{billet.prenom}}</td>
 	      <td>{{billet.type}}</td>
-	      <td>{{billet.prix}}</td>
 	    </tr>
 	    {% endfor %}
 	  </tbody>
@@ -38,7 +36,9 @@
                                 data-description="Widget"
                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                                 data-locale="auto"
-                                data-currency="eur">
+                                data-currency="eur"
+								data-reference="{{ billet.reference }}"
+						>
                         </script>
             </form>
     </div>

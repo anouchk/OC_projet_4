@@ -27,7 +27,9 @@ class Billet
     private $Prenom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="smallint")
+     *
+     * @var int
      */
     private $Type;
 
@@ -47,14 +49,16 @@ class Billet
     private $TarifReduit;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $Tarif;
-
-    /**
      * @ORM\Column(type="integer")
+     *
      */
     private $idCommande;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="billets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commande;
 
     public function getId(): ?int
     {
@@ -150,10 +154,15 @@ class Billet
         return $this->idCommande;
     }
 
-    public function setIdCommande(int $idCommande): self
+    public function setCommande(Commande $commande): self
     {
-        $this->idCommande = $idCommande;
+        $this->commande = $commande;
 
         return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
     }
 }
