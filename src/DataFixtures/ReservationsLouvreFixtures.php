@@ -21,7 +21,7 @@ class ReservationsLouvreFixtures extends Fixture
         	$billet->setDateNaissance(new \DateTime());
         	$billet->setTarifReduit(true);
         	$billet->setIdCommande(3);
-        	$billet->setType("journée" . $i);
+        	$billet->setType($i);
 
         	$manager->persist($billet);
 
