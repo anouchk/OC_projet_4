@@ -2,47 +2,6 @@
 
 {% block body %}
 
-    <h1>Salut la home</h1>
-
-    <table class="table table-hover">
-	  <thead>
-	    <tr>
-	      <th scope="col">Nom</th>
-	      <th scope="col">Prénom</th>
-	      <th scope="col">Type de billet</th>
-	      <th scope="col">Prix</th>
-	      
-	    </tr>
-	  </thead>
-	  <tbody>
-	  	{% for billet in billets %}
-	    <tr class="table-active">
-	      <td>{{billet.nom}}</td>
-	      <td>{{billet.prenom}}</td>
-	      <td>{{billet.type}}</td>
-	      <td>{{billet.prix}}</td>
-	    </tr>
-	    {% endfor %}
-	  </tbody>
-	</table> 
-
-
-    <div>
-        Vous êtes sur le point de payer votre réservation 
-            <form action="{{ path('order_checkout') }}" method="POST">
-                        <script
-                                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                data-key="pk_test_DMiADShJSyoZEBEHabm71UC1"
-                                data-amount="99500"
-                                data-name="Paiemen resas Louvre"
-                                data-description="Widget"
-                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                data-locale="auto"
-                                data-currency="eur">
-                        </script>
-            </form>
-    </div>
-
-    
+    <h1>Salut la home</h1>    
 
 {% endblock %}
