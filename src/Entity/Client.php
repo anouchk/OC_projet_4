@@ -21,11 +21,6 @@ class Client
      */
     private $mail;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Commande", mappedBy="client", cascade={"persist", "remove"})
-     */
-    private $commande;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -39,24 +34,6 @@ class Client
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getCommande(): ?Commande
-    {
-        return $this->commande;
-    }
-
-    public function setCommande(?Commande $commande): self
-    {
-        $this->commande = $commande;
-
-        // set (or unset) the owning side of the relation if necessary
-        $newClient = $commande === null ? null : $this;
-        if ($newClient !== $commande->getClient()) {
-            $commande->setClient($newClient);
-        }
 
         return $this;
     }

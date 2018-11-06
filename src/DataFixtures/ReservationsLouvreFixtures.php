@@ -20,7 +20,7 @@ class ReservationsLouvreFixtures extends Fixture
         	$billet->setPays("France" . $i);
         	$billet->setDateNaissance(new \DateTime());
         	$billet->setTarifReduit(true);
-        	$billet->setCommande(null);
+        	// $billet->setCommandeId(3);
         	$billet->setTypeBillet($i);
 
         	$manager->persist($billet);

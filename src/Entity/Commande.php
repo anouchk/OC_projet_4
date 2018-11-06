@@ -33,16 +33,6 @@ class Commande
      */
     private $paid;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true)
-     */
-    private $billets;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="commande", cascade={"persist", "remove"})
-     */
-    private $client;
-
     public function __construct()
     {
         $this->billets = new ArrayCollection();
@@ -85,49 +75,6 @@ class Commande
     public function setPaid(bool $paid): self
     {
         $this->paid = $paid;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Billet[]
-     */
-    public function getBillets(): Collection
-    {
-        return $this->billets;
-    }
-
-    public function addBillet(Billet $billet): self
-    {
-        if (!$this->billets->contains($billet)) {
-            $this->billets[] = $billet;
-            $billet->setCommande($this);
-        }
-
-        return $this;
-    }
-
-    public function removeBillet(Billet $billet): self
-    {
-        if ($this->billets->contains($billet)) {
-            $this->billets->removeElement($billet);
-            // set the owning side to null (unless already changed)
-            if ($billet->getCommande() === $this) {
-                $billet->setCommande(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
 
         return $this;
     }
