@@ -38,6 +38,11 @@ class Commande
      */
     private $billets;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="commande", cascade={"persist", "remove"})
+     */
+    private $client;
+
     public function __construct()
     {
         $this->billets = new ArrayCollection();
@@ -111,6 +116,18 @@ class Commande
                 $billet->setCommande(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getClient(): ?Client
+    {
+        return $this->client;
+    }
+
+    public function setClient(?Client $client): self
+    {
+        $this->client = $client;
 
         return $this;
     }
