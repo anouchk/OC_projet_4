@@ -46,6 +46,12 @@ class Billet
      */
     private $tarifReduit;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="billets")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commande;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -119,6 +125,18 @@ class Billet
     public function setTarifReduit(bool $tarifReduit): self
     {
         $this->tarifReduit = $tarifReduit;
+
+        return $this;
+    }
+
+    public function getCommande(): ?Commande
+    {
+        return $this->commande;
+    }
+
+    public function setCommande(?Commande $commande): self
+    {
+        $this->commande = $commande;
 
         return $this;
     }
