@@ -5,6 +5,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Billet;
+use App\Entity\Commande;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 
 class LouvreController extends AbstractController
 {
@@ -31,10 +34,18 @@ class LouvreController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie()
+    public function billetterie(Request $request, ObjectManager $manager)
     {
+        $commande = new Commande();
+        
+        $form = $this->createFormBuilder($commande)
+                            ->add('dateVisite')
+                            ->getForm();
+
+        // ici on fera plutôt return $this->redirectToRoute('recap') Et il faudra changer l'url de recap en "/recap/{id}"
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
+            'formCommande' => $form->createView()
         ]);
     }
 
