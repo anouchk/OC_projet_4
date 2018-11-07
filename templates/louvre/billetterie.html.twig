@@ -1,21 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme formCommande 'bootstrap_4_layout.html.twig' %}
+{% form_theme formCommande  'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
 
     <h1>Salut la billetterie</h1>
 
-    {{ form(formCommande) }}
+    {{ form_start(formCommande) }}
 
     {{ form_widget(formCommande) }}
 
-    {{ form_start(formCommande) }}
-
     {{ form_end(formCommande) }}
+
     <p><b>Billet 1 </b></p>
 
      {{ form(formBillet) }}
+
+     <button type="submit" class="btn btn-success">Réserver</button>
 
     <p> <b>Billet 1</b>
 
