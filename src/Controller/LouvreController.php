@@ -8,6 +8,7 @@ use App\Entity\Billet;
 use App\Entity\Commande;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class LouvreController extends AbstractController
 {
@@ -42,10 +43,22 @@ class LouvreController extends AbstractController
                             ->add('dateVisite')
                             ->getForm();
 
+        $billet = new Billet();
+        
+        $form_billet = $this->createFormBuilder($billet)
+                            ->add('nom')
+                            ->add('prenom')
+                            ->add('typeBillet')
+                            ->add('pays', ChoiceType::class)
+                            ->add('dateNaissance')
+                            ->add('tarifReduit')
+                            ->getForm();
+
         // ici on fera plutôt return $this->redirectToRoute('recap') Et il faudra changer l'url de recap en "/recap/{id}"
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
-            'formCommande' => $form->createView()
+            'formCommande' => $form->createView(),
+            'formBillet' => $form_billet->createView()
         ]);
     }
 
