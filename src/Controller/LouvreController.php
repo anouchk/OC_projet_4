@@ -53,6 +53,16 @@ class LouvreController extends AbstractController
     }
 
     /**
+     * @Route("/infospratiques", name="infospratiques")
+     */
+    public function infosPratiques()
+    {
+        return $this->render('louvre/infosPratiques.html.twig', [
+            'controller_name' => 'LouvreController',
+        ]);
+    }
+
+    /**
      * @Route(
      *     "/checkout",
      *     name="order_checkout",
@@ -81,15 +91,5 @@ class LouvreController extends AbstractController
             return $this->redirectToRoute("recap");
             // The card has been declined
         }
-    }
-
-    /**
-     * @Route("/infospratiques", name="infospratiques")
-     */
-    public function infosPratiques()
-    {
-        return $this->render('louvre/infosPratiques.html.twig', [
-            'controller_name' => 'LouvreController',
-        ]);
     }
 }
