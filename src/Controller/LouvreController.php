@@ -8,7 +8,7 @@ use App\Entity\Billet;
 use App\Entity\Commande;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 class LouvreController extends AbstractController
 {
@@ -49,7 +49,7 @@ class LouvreController extends AbstractController
                             ->add('nom')
                             ->add('prenom')
                             ->add('typeBillet')
-                            ->add('pays', ChoiceType::class)
+                            ->add('pays', CountryType::class)
                             ->add('dateNaissance')
                             ->add('tarifReduit')
                             ->getForm();
