@@ -4,19 +4,40 @@
 
 {% block body %}
 
-    <h1>Salut la billetterie</h1>
+    <h1>
+    	{% if modifyMode %}
+     		Modifier votre commande
+     	{% else %}
+     		Réserver vos billets pour le musée
+     	{% endif %}
+    </h1>
 
     {{ form_start(formCommande) }}
 
-    {{ form_widget(formCommande) }}
+    {{ form_row(formCommande.dateVisite) }}
 
     {{ form_end(formCommande) }}
 
     <p><b>Billet 1 </b></p>
 
-     {{ form(formBillet) }}
+     {{ form_start(formBillet) }}
 
-     <button type="submit" class="btn btn-success">Réserver</button>
+     {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
+     {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
+     {{ form_row(formBillet.typeBillet) }}
+     {{ form_row(formBillet.pays) }}
+     {{ form_row(formBillet.dateNaissance) }}
+     {{ form_row(formBillet.tarifReduit) }}
+
+     {{ form_end(formBillet) }}
+
+     <button type="submit" class="btn btn-success">
+     	{% if modifyMode %}
+     		Enregistrer la modification de la commande
+     	{% else %}
+     	Réserver
+     	{% endif %}
+     </button>
 
     <p> <b>Billet 1</b>
 

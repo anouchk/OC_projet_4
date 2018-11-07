@@ -33,13 +33,16 @@ class LouvreController extends AbstractController
         ]);
     }
 
+    // il faudra que je rajoute * @Route("/recap/{id}/modify, name="modification_commande")
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, ObjectManager $manager)
+    public function billetterie(Commande $commande=null, Request $request, ObjectManager $manager)
     {
-        $commande = new Commande();
-        
+        if(!$commande){
+            $commande = new Commande();
+        }
+               
         $form = $this->createFormBuilder($commande)
                             ->add('dateVisite')
                             ->getForm();
@@ -55,16 +58,32 @@ class LouvreController extends AbstractController
                             ->add('tarifReduit')
                             ->getForm();
 
-        // ici on fera plutôt return $this->redirectToRoute('recap') Et il faudra changer l'url de recap en "/recap/{id}"
+        $form->handleRequest($request);
+
+        dump($billet);
+        // if($form->isSubmited() && $fom->isValid()) {
+        //     if(!$commande->getId()) {
+        //          $commande->setReference('ER34TY');
+        //     }
+        //     $manager->persist($commande);
+        //     $manager->persist($billet);
+        //     $manager->flush;
+
+        //     return $this->redirectToRoute('recap', ['id' => $commande->getId()])
+        // }
+
+        
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
             'formCommande' => $form->createView(),
-            'formBillet' => $form_billet->createView()
+            'formBillet' => $form_billet->createView(),
+            'modifyMode' => $commande->getId() !== null 
         ]);
     }
 
+    // là il faudra que je fasse @Route("/recapitulatif/{id}", name="recap")
     /**
-     * @Route("/recapitulatif", name="recap")
+     * @Route("/recapitulatif/", name="recap")
      */
     public function recap()
     {
