@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use App\Form\CommandeType;
+use App\Form\BilletType;
 
 class LouvreController extends AbstractController
 {
@@ -37,26 +39,30 @@ class LouvreController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Commande $commande=null, Request $request, ObjectManager $manager)
+    public function billetterie(Commande $commande=null, Billet $billet=null, Request $request, ObjectManager $manager)
     {
         if(!$commande){
             $commande = new Commande();
         }
                
-        $form = $this->createFormBuilder($commande)
-                            ->add('dateVisite')
-                            ->getForm();
+        // $form = $this->createFormBuilder($commande)
+        //                     ->add('dateVisite')
+        //                     ->getForm();
+        $form = $this->createForm(CommandeType::class, $commande);
 
-        $billet = new Billet();
+        if(!$billet){
+            $billet = new Billet();
+        }
         
-        $form_billet = $this->createFormBuilder($billet)
-                            ->add('nom')
-                            ->add('prenom')
-                            ->add('typeBillet')
-                            ->add('pays', CountryType::class)
-                            ->add('dateNaissance')
-                            ->add('tarifReduit')
-                            ->getForm();
+        // $form_billet = $this->createFormBuilder($billet)
+        //                     ->add('nom')
+        //                     ->add('prenom')
+        //                     ->add('typeBillet')
+        //                     ->add('pays', CountryType::class)
+        //                     ->add('dateNaissance')
+        //                     ->add('tarifReduit')
+        //                     ->getForm();
+        $form_billet = $this->createForm(BilletType::class, $billet);
 
         $form->handleRequest($request);
 
