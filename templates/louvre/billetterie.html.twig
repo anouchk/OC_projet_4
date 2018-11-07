@@ -1,16 +1,23 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme formCommande 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
 
     <h1>Salut la billetterie</h1>
 
     {{ form(formCommande) }}
 
-    <p>Billet 1 </p>
+    {{ form_widget(formCommande) }}
+
+    {{ form_start(formCommande) }}
+
+    {{ form_end(formCommande) }}
+    <p><b>Billet 1 </b></p>
 
      {{ form(formBillet) }}
 
-    <p> Billet 1
+    <p> <b>Billet 1</b>
 
     <form >
 		<p><label> Nom : </label> <input class="input_large" type="text" name="nom_billet" value="" ></p>
