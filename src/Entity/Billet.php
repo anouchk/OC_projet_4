@@ -19,13 +19,13 @@ class Billet
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Vous n'avez pas renseigné le nom")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank()
+     * @Assert\NotBlank(message="Vous n'avez pas renseigné le prénom")
      */
     private $prenom;
 
