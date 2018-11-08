@@ -44,7 +44,7 @@ class LouvreController extends AbstractController
         if(!$commande){
             $commande = new Commande();
         }
-               
+
         $form = $this->createForm(CommandeType::class, $commande);
 
         if(!$billet){
@@ -53,10 +53,13 @@ class LouvreController extends AbstractController
         
         $form_billet = $this->createForm(BilletType::class, $billet);
 
-        $form->handleRequest($request);
+        $form_billet->handleRequest($request);
 
-        dump($billet);
-        // if($form->isSubmited() && $fom->isValid()) {
+
+        if($form_billet->isSubmitted() && $form_billet->isValid()) {
+
+            dump($billet);
+            die;
         //     if(!$commande->getId()) {
         //          $commande->setReference('ER34TY');
         //     }
@@ -65,7 +68,7 @@ class LouvreController extends AbstractController
         //     $manager->flush;
 
         //     return $this->redirectToRoute('recap', ['id' => $commande->getId()])
-        // }
+        }
 
         
         return $this->render('louvre/billetterie.html.twig', [

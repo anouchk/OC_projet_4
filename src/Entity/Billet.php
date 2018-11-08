@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints\Minimum;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -20,12 +21,14 @@ class Billet
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Vous n'avez pas renseigné le nom")
+     * @Assert\Length(min="2", minMessage="Il faut 2 caractères minimum")
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Vous n'avez pas renseigné le prénom")
+     * @Minimum()
      */
     private $prenom;
 

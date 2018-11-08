@@ -20,7 +20,7 @@
 
     <p><b>Billet 1 </b></p>
 
-     {{ form_start(formBillet) }}
+     {{ form_start(formBillet, {'attr': {'novalidate': 'novalidate'}}) }}
 
      {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
      {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
@@ -29,15 +29,20 @@
      {{ form_row(formBillet.dateNaissance) }}
      {{ form_row(formBillet.tarifReduit) }}
 
+	<button type="submit" class="btn btn-success">
+        {% if modifyMode %}
+			Enregistrer la modification de la commande
+        {% else %}
+			Réserver
+        {% endif %}
+	</button>
+
      {{ form_end(formBillet) }}
 
-     <button type="submit" class="btn btn-success">
-     	{% if modifyMode %}
-     		Enregistrer la modification de la commande
-     	{% else %}
-     	Réserver
-     	{% endif %}
-     </button>
+
+	-----------
+
+
 
     <p> <b>Billet 1</b>
 
