@@ -45,23 +45,12 @@ class LouvreController extends AbstractController
             $commande = new Commande();
         }
                
-        // $form = $this->createFormBuilder($commande)
-        //                     ->add('dateVisite')
-        //                     ->getForm();
         $form = $this->createForm(CommandeType::class, $commande);
 
         if(!$billet){
             $billet = new Billet();
         }
         
-        // $form_billet = $this->createFormBuilder($billet)
-        //                     ->add('nom')
-        //                     ->add('prenom')
-        //                     ->add('typeBillet')
-        //                     ->add('pays', CountryType::class)
-        //                     ->add('dateNaissance')
-        //                     ->add('tarifReduit')
-        //                     ->getForm();
         $form_billet = $this->createForm(BilletType::class, $billet);
 
         $form->handleRequest($request);

@@ -6,6 +6,7 @@ use App\Entity\Billet;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\CountryType;
 
 class BilletType extends AbstractType
 {
@@ -15,7 +16,7 @@ class BilletType extends AbstractType
             ->add('nom')
             ->add('prenom')
             ->add('typeBillet')
-            ->add('pays')
+            ->add('pays', CountryType::class)
             ->add('dateNaissance')
             ->add('tarifReduit')
         ;
