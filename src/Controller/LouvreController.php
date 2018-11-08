@@ -133,11 +133,11 @@ class LouvreController extends AbstractController
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"
             ));
-            $this->addFlash("success","Bravo ça marche !");
+            $this->addFlash("success","Le paiement a bien été effectué !");
             return $this->redirectToRoute("recap");
         	} 
         catch(\Stripe\Error\Card $e) {
-            $this->addFlash("error","Snif ça marche pas :(");
+            $this->addFlash("error","Le paiement n'est pas passé :(");
             return $this->redirectToRoute("recap");
             // The card has been declined
         }
