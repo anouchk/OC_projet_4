@@ -53,7 +53,7 @@ class LouvreController extends AbstractController
         
         $form_billet = $this->createForm(BilletType::class, $billet);
 
-        $form->handleRequest($request);
+        $form_billet->handleRequest($request);
 
         dump($billet);
         // if($form->isSubmited() && $fom->isValid()) {
