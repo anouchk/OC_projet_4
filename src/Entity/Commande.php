@@ -25,7 +25,7 @@ class Commande
     private $reference;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateVisite;
 

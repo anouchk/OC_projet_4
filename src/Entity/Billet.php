@@ -40,7 +40,7 @@ class Billet
     private $pays;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateNaissance;
 
