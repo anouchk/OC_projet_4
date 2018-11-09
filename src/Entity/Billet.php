@@ -51,7 +51,7 @@ class Billet
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Commande", inversedBy="billets")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $commande;
 
