@@ -29,8 +29,6 @@
      {{ form_row(formBillet.dateNaissance) }}
      {{ form_row(formBillet.tarifReduit) }}
 
-     {{ form_end(formBillet) }}
-
      <button type="submit" class="btn btn-success">
      	{% if modifyMode %}
      		Enregistrer la modification de la commande
@@ -38,6 +36,10 @@
      	Réserver
      	{% endif %}
      </button>
+
+     {{ form_end(formBillet) }}
+
+     
 
     <p> <b>Billet 1</b>
 
