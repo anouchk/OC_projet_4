@@ -12,7 +12,7 @@
      	{% endif %}
     </h1>
 
-    {{ form_start(formCommande) }}
+    {{ form_start(formCommande, {'attr': {'novalidate': 'novalidate'}}) }}
 
     {{ form_row(formCommande.dateVisite) }}
 
@@ -20,7 +20,7 @@
 
     <p><b>Billet 1 </b></p>
 
-     {{ form_start(formBillet) }}
+     {{ form_start(formBillet, {'attr': {'novalidate': 'novalidate'}}) }}
 
      {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
      {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
