@@ -28,7 +28,6 @@ class Commande
     /**
      * @ORM\Column(type="date")
      * @Assert\NotBlank(message="Vous n'avez pas renseigné la date de la visite")
-     * @JoursPasses()
      */
     private $dateVisite;
 
