@@ -16,6 +16,14 @@
 
     {{ form_row(formCommande.dateVisite) }}
 
+    <button type="submit" class="btn btn-success">
+     	{% if modifyMode %}
+     		Enregistrer la modification de la commande
+     	{% else %}
+     	Réserver
+     	{% endif %}
+     </button>
+
     {{ form_end(formCommande) }}
 
     <p><b>Billet 1 </b></p>

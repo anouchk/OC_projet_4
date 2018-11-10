@@ -54,8 +54,9 @@ class LouvreController extends AbstractController
         $form_billet = $this->createForm(BilletType::class, $billet);
 
         $form_billet->handleRequest($request);
+        $form->handleRequest($request);
 
-        dump($billet);
+        dump($commande);
         // if($form->isSubmited() && $fom->isValid()) {
         //     if(!$commande->getId()) {
         //          $commande->setReference('ER34TY');
