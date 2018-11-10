@@ -15,8 +15,6 @@ class JoursPassesValidator extends ConstraintValidator
             $this->context->buildViolation($constraint->message)
                           ->setParameter('** value **', $value)
                           ->addViolation();
-        }
-
-        
+        }      
     }
 }
