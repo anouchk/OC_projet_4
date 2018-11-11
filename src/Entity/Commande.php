@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints\JoursPasses;
 use App\Validator\Constraints\JoursFeries;
+use App\Validator\Constraints\MardiDimanche;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
@@ -30,6 +31,7 @@ class Commande
      * @ORM\Column(type="date")
      * @JoursPasses
      * @JoursFeries
+     * @MardiDimanche
      * @Assert\NotBlank(message="Vous n'avez pas renseigné la date de la visite")
      */
     private $dateVisite;
