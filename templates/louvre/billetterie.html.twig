@@ -30,12 +30,19 @@
 
      {{ form_start(formBillet, {'attr': {'novalidate': 'novalidate'}}) }}
 
-     {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
-     {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
-     {{ form_row(formBillet.typeBillet) }}
-     {{ form_row(formBillet.pays) }}
-     {{ form_row(formBillet.dateNaissance) }}
-     {{ form_row(formBillet.tarifReduit) }}
+    {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
+    {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
+    {{ form_row(formBillet.typeBillet) }}
+    {{ form_row(formBillet.pays) }}
+    {{ form_row(formBillet.dateNaissance) }}
+
+    {{ form_label(formBillet.tarifReduit) }}
+    {{ form_widget(formBillet.tarifReduit) }}
+    Peuvent prétendre à un tarif réduit les étudiants, chômeurs, militaires, sur présentation d'un justificatif.
+    {{ form_help(formBillet.tarifReduit) }}
+
+     <br>
+     <br>
 
      <button type="submit" class="btn btn-success">
      	{% if modifyMode %}
