@@ -57,6 +57,7 @@ class LouvreController extends AbstractController
         $form->handleRequest($request);
 
         // dump($commande);
+        dump ($commande->getDateVisite()->format('D'));
         if($form->isSubmitted() && $form->isValid()) {
             if(!$commande->getId()) {
                  $commande->setReference('ER34TY');

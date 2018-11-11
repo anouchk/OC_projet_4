@@ -10,7 +10,7 @@ class MardiDimancheValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if ($value->format('D') == 'Tues' OR 'Sun') {
+        if ($value->format('D') === 'Tue' OR $value->format('D') === 'Sun') {
             $this->context->buildViolation($constraint->message)
                           ->setParameter('** value **', $value->format('d-m-Y'))
                           ->addViolation();
