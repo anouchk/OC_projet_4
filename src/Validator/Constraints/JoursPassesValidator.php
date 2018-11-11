@@ -10,10 +10,10 @@ class JoursPassesValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        $now = new \DateTime;
+        $now = new \DateTime();
         if ($value < $now) {
             $this->context->buildViolation($constraint->message)
-                          ->setParameter('** value **', $value)
+                          ->setParameter('** value **', $value->format('d-m-Y'))
                           ->addViolation();
         }      
     }
