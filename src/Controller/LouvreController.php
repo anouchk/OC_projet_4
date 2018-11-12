@@ -11,7 +11,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\CommandeType;
-use App\Form\BilletType;
+use App\Form\FauxBilletType;
 
 class LouvreController extends AbstractController
 {
@@ -51,14 +51,12 @@ class LouvreController extends AbstractController
             $billet = new Billet();
         }
         
-        $form_billet = $this->createForm(BilletType::class, $billet);
+        $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
 
-        $form_billet->handleRequest($request);
+        $form_faux_billet->handleRequest($request);
         $form->handleRequest($request);
 
         // dump($commande);
-        // dump ($commande->getDateVisite()->format('D'));
-        dump ($commande->getDateVisite()->format('d-m'));
         if($form->isSubmitted() && $form->isValid()) {
             if(!$commande->getId()) {
                  $commande->setReference('ER34TY');
@@ -85,7 +83,7 @@ class LouvreController extends AbstractController
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
             'formCommande' => $form->createView(),
-            'formBillet' => $form_billet->createView(),
+            'formFauxBillet' => $form_faux_billet->createView(),
             'modifyMode' => $commande->getId() !== null 
         ]);
     }

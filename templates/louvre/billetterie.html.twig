@@ -28,18 +28,18 @@
 
     <p><b>Billet 1 </b></p>
 
-     {{ form_start(formBillet, {'attr': {'novalidate': 'novalidate'}}) }}
+     {{ form_start(formFauxBillet, {'attr': {'novalidate': 'novalidate'}}) }}
 
-    {{ form_row(formBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
-    {{ form_row(formBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
-    {{ form_row(formBillet.typeBillet) }}
-    {{ form_row(formBillet.pays) }}
-    {{ form_row(formBillet.dateNaissance) }}
+    {{ form_row(formFauxBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
+    {{ form_row(formFauxBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
+    {{ form_row(formFauxBillet.typeBillet) }}
+    {{ form_row(formFauxBillet.pays) }}
+    {{ form_row(formFauxBillet.dateNaissance) }}
 
-    {{ form_label(formBillet.tarifReduit) }}
-    {{ form_widget(formBillet.tarifReduit) }}
+    {{ form_label(formFauxBillet.tarifReduit) }}
+    {{ form_widget(formFauxBillet.tarifReduit) }}
     Peuvent prétendre à un tarif réduit les étudiants, chômeurs, militaires, sur présentation d'un justificatif.
-    {{ form_help(formBillet.tarifReduit) }}
+    {{ form_help(formFauxBillet.tarifReduit) }}
 
      <br>
      <br>
@@ -52,7 +52,7 @@
      	{% endif %}
      </button>
 
-     {{ form_end(formBillet) }}
+     {{ form_end(formFauxBillet) }}
 
      
 
