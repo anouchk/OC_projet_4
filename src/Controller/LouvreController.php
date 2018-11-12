@@ -51,22 +51,27 @@ class LouvreController extends AbstractController
             $billet = new Billet();
         }
         
+        $billet->setPrenom('Toto');
+        $billet->setNom('Zigoto');
+
+        $commande->addBillet($billet);
+
         $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
 
         $form_faux_billet->handleRequest($request);
         $form->handleRequest($request);
 
         // dump($commande);
-        if($form->isSubmitted() && $form->isValid()) {
-            if(!$commande->getId()) {
-                 $commande->setReference('ER34TY');
-            }
-            $manager->persist($commande);
+        // if($form->isSubmitted() && $form->isValid()) {
+        //     if(!$commande->getId()) {
+        //          $commande->setReference('ER34TY');
+        //     }
+        //     $manager->persist($commande);
         //     $manager->persist($billet);
-            $manager->flush();
+            // $manager->flush();
 
             // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
-        }
+        // }
 
        function random_reference($length=6)
         {
