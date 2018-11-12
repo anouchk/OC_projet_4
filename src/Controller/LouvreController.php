@@ -47,31 +47,39 @@ class LouvreController extends AbstractController
                
         $form = $this->createForm(CommandeType::class, $commande);
 
-        if(!$billet){
-            $billet = new Billet();
-        }
+        // if(!$billet){
+        //     $billet = new Billet();
+        // }
         
+        $billet = new Billet();
         $billet->setPrenom('Toto');
         $billet->setNom('Zigoto');
 
-        $commande->addBillet($billet);
+        $billet2 = new Billet();
+        $billet->setPrenom('Tata');
+        $billet->setNom('Zigata');
 
+        $commande->addBillet($billet)
+                 -> addBillet($billet2);
+
+        $form->handleRequest($request);
+        
         $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
 
         $form_faux_billet->handleRequest($request);
-        $form->handleRequest($request);
+        
 
-        // dump($commande);
-        // if($form->isSubmitted() && $form->isValid()) {
-        //     if(!$commande->getId()) {
-        //          $commande->setReference('ER34TY');
-        //     }
-        //     $manager->persist($commande);
-        //     $manager->persist($billet);
-            // $manager->flush();
+        dump($commande);
+        if($form->isSubmitted() && $form->isValid()) {
+            if(!$commande->getId()) {
+                 $commande->setReference('ER34TY');
+            }
+            $manager->persist($commande);
+            // $manager->persist($billet);
+            $manager->flush();
 
             // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
-        // }
+        }
 
        function random_reference($length=6)
         {
