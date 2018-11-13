@@ -54,15 +54,29 @@ class LouvreController extends AbstractController
         $billet = new Billet();
         $billet->setPrenom('Toto');
         $billet->setNom('Zigoto');
+        $billet->setTypeBillet(1);
+        $billet->setPays('');
+        $billet->setDateNaissance(new \DateTime());
+        $billet->setTarifReduit(false);
 
         $billet2 = new Billet();
         $billet2->setPrenom('Tata');
         $billet2->setNom('Zigata');
+        $billet2->setTypeBillet(1);
+        $billet2->setPays('');
+        $billet2->setDateNaissance(new \DateTime());
+        $billet2->setTarifReduit(true);
 
         $commande->addBillet($billet);
         $commande-> addBillet($billet2);
+        $commande->setReference($this->random_reference());
+        $commande->setDateVisite(new \DateTime());
+        $commande->setPaid(false);
 
-        // $form = $this->createForm(CommandeType::class, $commande);
+        $manager->persist($commande);
+        $manager->flush();
+
+        $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
         $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
@@ -83,15 +97,7 @@ class LouvreController extends AbstractController
 
 
 
-       function random_reference($length=6)
-        {
-            $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $string = '';
-            for($i=0; $i<$length; $i++){
-                $string .= $chars[rand(0, strlen($chars)-1)];
-            }
-            return $string;
-        }
+
 
 
         
@@ -102,6 +108,16 @@ class LouvreController extends AbstractController
             'modifyMode' => $commande->getId() !== null 
         ]);
     }
+
+	private function random_reference($length=6)
+	{
+		$chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$string = '';
+		for($i=0; $i<$length; $i++){
+			$string .= $chars[rand(0, strlen($chars)-1)];
+		}
+		return $string;
+	}
 
     // là il faudra que je fasse @Route("/recapitulatif/{id}", name="recap")
     /**

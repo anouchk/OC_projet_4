@@ -42,12 +42,13 @@ class Commande
     private $paid;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true, cascade={"persist"})
      */
     private $billets;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Client", inversedBy="commande", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $client;
 
@@ -138,5 +139,9 @@ class Commande
         $this->client = $client;
 
         return $this;
+    }
+
+    public function __toString() {
+	    return 'la Commande ';
     }
 }

@@ -26,32 +26,6 @@
 
     {{ form_end(formCommande) }}
 
-    <p><b>Billet 1 </b></p>
 
-    {{ form_start(formFauxBillet, {'attr': {'novalidate': 'novalidate'}}) }}
-
-    {{ form_row(formFauxBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
-    {{ form_row(formFauxBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
-    {{ form_row(formFauxBillet.typeBillet) }}
-    {{ form_row(formFauxBillet.pays) }}
-    {{ form_row(formFauxBillet.dateNaissance) }}
-
-    {{ form_label(formFauxBillet.tarifReduit) }}
-    {{ form_widget(formFauxBillet.tarifReduit) }}
-    Peuvent prétendre à un tarif réduit les étudiants, chômeurs, militaires, sur présentation d'un justificatif.
-    {{ form_help(formFauxBillet.tarifReduit) }}
-
-     <br>
-     <br>
-
-     <button type="submit" class="btn btn-success">
-     	{% if modifyMode %}
-     		Enregistrer la modification de la commande
-     	{% else %}
-     	Réserver
-     	{% endif %}
-     </button>
-
-     {{ form_end(formFauxBillet) }}
 
 {% endblock %}
