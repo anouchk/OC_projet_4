@@ -45,7 +45,7 @@ class LouvreController extends AbstractController
             $commande = new Commande();
         }
                
-        // $form = $this->createForm(CommandeType::class, $commande);
+        $form = $this->createForm(CommandeType::class, $commande);
 
         // if(!$billet){
         //     $billet = new Billet();
@@ -56,13 +56,13 @@ class LouvreController extends AbstractController
         $billet->setNom('Zigoto');
 
         $billet2 = new Billet();
-        $billet->setPrenom('Tata');
-        $billet->setNom('Zigata');
+        $billet2->setPrenom('Tata');
+        $billet2->setNom('Zigata');
 
         $commande->addBillet($billet);
         $commande-> addBillet($billet2);
 
-        $form = $this->createForm(CommandeType::class, $commande);
+        // $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
         $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
