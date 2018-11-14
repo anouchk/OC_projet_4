@@ -35,6 +35,16 @@ class LouvreController extends AbstractController
         ]);
     }
 
+    private function random_reference($length=6)
+        {
+            $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $string = '';
+            for($i=0; $i<$length; $i++){
+                $string .= $chars[rand(0, strlen($chars)-1)];
+            }
+            return $string;
+        }
+
     // il faudra que je rajoute * @Route("/recap/{id}/modify, name="modification_commande")
     /**
      * @Route("/billetterie", name="billetterie")
@@ -45,7 +55,7 @@ class LouvreController extends AbstractController
             $commande = new Commande();
         }
                
-        $form = $this->createForm(CommandeType::class, $commande);
+        // $form = $this->createForm(CommandeType::class, $commande);
 
         // if(!$billet){
         //     $billet = new Billet();
@@ -54,43 +64,49 @@ class LouvreController extends AbstractController
         $billet = new Billet();
         $billet->setPrenom('Toto');
         $billet->setNom('Zigoto');
+        $billet->setTypeBillet(1);
+        $billet->setPays('');
+        $billet->setDateNaissance(new \DateTime());
+        $billet->setTarifReduit(false);
 
         $billet2 = new Billet();
         $billet2->setPrenom('Tata');
         $billet2->setNom('Zigata');
+        $billet2->setTypeBillet(1);
+        $billet2->setPays('');
+        $billet2->setDateNaissance(new \DateTime());
+        $billet2->setTarifReduit(true);
+
+        $commande->addBillet($billet);
+        $commande-> addBillet($billet2);
+        $commande->setReference($this->random_reference());
+        $commande->setDateVisite(new \DateTime());
+        $commande->setPaid(false);
 
         $commande->addBillet($billet);
         $commande-> addBillet($billet2);
 
-        // $form = $this->createForm(CommandeType::class, $commande);
+        $manager->persist($commande);
+        $manager->flush();
+        $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
         $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
         $form_faux_billet->handleRequest($request);
         
+       
 
         dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
             if(!$commande->getId()) {
-                 $commande->setReference('ER34TY');
+                $commande->setReference($this->random_reference());
+                $commande->setPaid(false);
             }
             $manager->persist($commande);
             // $manager->persist($billet);
             $manager->flush();
 
             // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
-        }
-
-
-
-       function random_reference($length=6)
-        {
-            $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $string = '';
-            for($i=0; $i<$length; $i++){
-                $string .= $chars[rand(0, strlen($chars)-1)];
-            }
-            return $string;
         }
 
 
