@@ -56,10 +56,6 @@ class LouvreController extends AbstractController
         }
                
         // $form = $this->createForm(CommandeType::class, $commande);
-
-        // if(!$billet){
-        //     $billet = new Billet();
-        // }
         
         $billet = new Billet();
         $billet->setPrenom('Toto');
@@ -91,11 +87,6 @@ class LouvreController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
-        $form_faux_billet = $this->createForm(FauxBilletType::class, $billet);
-        $form_faux_billet->handleRequest($request);
-        
-       
-
         dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
             if(!$commande->getId()) {
@@ -114,7 +105,6 @@ class LouvreController extends AbstractController
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
             'formCommande' => $form->createView(),
-            'formFauxBillet' => $form_faux_billet->createView(),
             'modifyMode' => $commande->getId() !== null 
         ]);
     }

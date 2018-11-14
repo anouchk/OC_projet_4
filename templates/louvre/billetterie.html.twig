@@ -2,6 +2,8 @@
 
 {% form_theme formCommande  'bootstrap_4_layout.html.twig' %}
 
+{% form_theme formCommande _self %}
+
 {% block body %}
 
     <h1>
@@ -26,32 +28,42 @@
 
     {{ form_end(formCommande) }}
 
-    <p><b>Billet 1 </b></p>
+{% endblock %}
 
-    {{ form_start(formFauxBillet, {'attr': {'novalidate': 'novalidate'}}) }}
+{% block _ad_billets_widget %} 
+	<p> Billet i </p>
 
-    {{ form_row(formFauxBillet.nom, {'attr': {'placeholder': "Nom du visiteur"}}) }}
-    {{ form_row(formFauxBillet.prenom, {'attr': {'placeholder': "Prénom du visiteur"}}) }}
-    {{ form_row(formFauxBillet.typeBillet) }}
-    {{ form_row(formFauxBillet.pays) }}
-    {{ form_row(formFauxBillet.dateNaissance) }}
+{{ form_widget(formCommande)}}
 
-    {{ form_label(formFauxBillet.tarifReduit) }}
-    {{ form_widget(formFauxBillet.tarifReduit) }}
-    Peuvent prétendre à un tarif réduit les étudiants, chômeurs, militaires, sur présentation d'un justificatif.
-    {{ form_help(formFauxBillet.tarifReduit) }}
+<div class="form-group">
+	<button type="button" id=ad-billet class="btn btn-primary">Ajouter un billet</button>
+</div>
 
-     <br>
-     <br>
+{% endblock %}
 
-     <button type="submit" class="btn btn-success">
-     	{% if modifyMode %}
-     		Enregistrer la modification de la commande
-     	{% else %}
-     	Réserver
-     	{% endif %}
-     </button>
+{% block _ad_billets_entry_row %}
+	{{ form_widget(form) }}
+{% endblock %}
 
-     {{ form_end(formFauxBillet) }}
-
+{% block _ad_billets_entry_widget %}
+	<div class="form-group">
+		<div class="row">
+			{{form_widget(form.nom)}}			
+		</div>
+		<div class="row">
+			{{form_widget(form.prenom)}}			
+		</div>
+		<div class="row">
+			{{form_widget(form.typeBillet)}}			
+		</div>
+		<div class="row">
+			{{form_widget(form.pays)}}			
+		</div>
+		<div class="row">
+			{{form_widget(form.dateNaissance)}}			
+		</div>
+		<div class="row">
+			{{form_widget(form.tarifRéduit)}}			
+		</div>
+	</div>
 {% endblock %}
