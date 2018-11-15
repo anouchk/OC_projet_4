@@ -2,87 +2,81 @@
 
 {% form_theme formCommande  'bootstrap_4_layout.html.twig' %}
 
-<!-- {% form_theme form _self %} -->
+{#   {% form_theme form _self %} #}
+
+{% import _self as formMacro %}
+{% macro printBilletRow(formBillet) %}
+	<div class="perso">
+
+		{{ form_row(formBillet.nom) }}
+		{{ form_row(formBillet.prenom) }}
+		{{ form_row(formBillet.typeBillet) }}
+		{{ form_row(formBillet.pays) }}
+		{{ form_row(formBillet.dateNaissance) }}
+		{{ form_row(formBillet.tarifReduit) }}
+
+	</div>
+{% endmacro %}
 
 {% block body %}
 
     <h1>
-    	{% if modifyMode %}
-     		Modifier votre commande
-     	{% else %}
-     		Réserver vos billets pour le musée
-     	{% endif %}
+		Réserver vos billets pour le musée
     </h1>
 
     {{ form_start(formCommande, {'attr': {'novalidate': 'novalidate'}}) }}
 
     {{ form_row(formCommande.dateVisite) }}
 
+	<h3>Billets</h3>
+
+	<div class="js-billet-wrapper"
+		 data-billetprototype="{{ formMacro.printBilletRow(formCommande.billets.vars.prototype)|e('html_attr') }}"
+		 data-index="{{ formCommande.billets|length }}"
+		 >
+
+        {{ form_widget(formCommande.billets) }}
+
+
+        <a href="#" class="js-billet-add">
+            Ajouter un billet
+        </a>
+	</div>
+
     <button type="submit" class="btn btn-success">
-     	{% if modifyMode %}
-     		Enregistrer la modification de la commande
-     	{% else %}
      	Réserver
-     	{% endif %}
      </button>
 
     {{ form_end(formCommande) }}
 
 {% endblock %}
 
-{% block _ad_billets_widget %} 
-	<p> Billet i </p>
-
-{{ form_widget(form)}}
-
-<div class="form-group">
-	<button type="button" id=ad-billet class="btn btn-primary">Ajouter un billet</button>
-</div>
-
-{% endblock %}
-
-{% block _ad_billets_entry_row %}
-	{{ form_widget(form) }}
-{% endblock %}
-
-{% block _ad_billets_entry_widget %}
-	<div class="form-group" id="block_{{id}}">
-		<div class="row">
-			{{form_widget(form.nom)}}			
-		</div>
-		<div class="row">
-			{{form_widget(form.prenom)}}			
-		</div>
-		<div class="row">
-			{{form_widget(form.typeBillet)}}			
-		</div>
-		<div class="row">
-			{{form_widget(form.pays)}}			
-		</div>
-		<div class="row">
-			{{form_widget(form.dateNaissance)}}			
-		</div>
-		<div class="row">
-			{{form_widget(form.tarifRéduit)}}			
-		</div>
-		<div>
-			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
-		</div>
-	</div>
-{% endblock %}
-
 {% block javascripts %}
-<script type="text/javascript">
-	$('#commande_billets').click(function(){
-		// Jerécupère le numéro des futurs champs que je vais créer
-		const index = $('#commande_billets div.form-group').length;
+	{{ parent() }}
+	<script>
+        (function ($) {
+            $(document).ready(function() {
 
-		// Je récupère le prototype des entrées
-		const tmpl = $('#commande_billets').data('prototype').replace(/_name_/g, index);
+                var $wrapper = $('.js-billet-wrapper');
 
-		// J'injecte ce code au sein de la div
-		$('#ad_images').append(tmpl);
-	});
-</script>
+                $wrapper.on('click', '.js-billet-add', function(e) {
+                    e.preventDefault();
+
+                    // Get the data-prototype explained earlier
+                    var billetprototype = $wrapper.data('billetprototype');
+
+                    // get the new index
+                    var index = $wrapper.data('index');
+                    // Replace '__name__' in the prototype's HTML to
+                    // instead be a number based on how many items we have
+                    var newForm = billetprototype.replace(/__name__/g, index);
+                    // increase the index with one for the next item
+                    $wrapper.data('index', index + 1);
+                    // Display the form in the page before the "new" link
+                    $(this).before(newForm);
+                });
+            });
+        })(jQuery);
+	</script>
 
 {% endblock %}

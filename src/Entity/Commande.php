@@ -56,6 +56,18 @@ class Commande
     public function __construct()
     {
         $this->billets = new ArrayCollection();
+        $this->reference = $this->random_reference();
+        $this->paid = false;
+    }
+
+    private function random_reference($length=6)
+    {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $string = '';
+        for($i=0; $i<$length; $i++){
+            $string .= $chars[rand(0, strlen($chars)-1)];
+        }
+        return $string;
     }
 
     public function getId(): ?int
