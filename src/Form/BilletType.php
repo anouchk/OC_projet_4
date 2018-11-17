@@ -15,7 +15,14 @@ class BilletType extends AbstractType
         $builder
             ->add('nom')
             ->add('prenom')
-            ->add('typeBillet')
+            ->add('typeBillet', ChoiceType::class, [
+                'choices' => [
+                    'Journée' => 1,
+                    'Demi-Journée' => 2,
+                ],
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('pays', CountryType::class)
             ->add('dateNaissance')
             ->add('tarifReduit')
