@@ -4,6 +4,23 @@
 
 {# {% form_theme formCommande _self %} #}
 
+{#   {% form_theme form _self %} #}
+
+{% import _self as formMacro %}
+{% macro printBilletRow(formBillet) %}
+	<div class="perso" id="block_{{id}}">
+		{{ form_row(formBillet.nom) }}
+		{{ form_row(formBillet.prenom) }}
+		{{ form_row(formBillet.typeBillet) }}
+		{{ form_row(formBillet.pays) }}
+		{{ form_row(formBillet.dateNaissance) }}
+		{{ form_row(formBillet.tarifReduit) }}
+		<div>
+			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
+		</div>
+	</div>
+{% endmacro %}
+
 {% block body %}
 
     <h1>
@@ -24,7 +41,7 @@
      	{# {% if modifyMode %}
      		Enregistrer la modification de la commande
      	{% else %} #}
-     	Réserver
+     		Réserver
      	{# {% endif %} #}
      </button>
 
@@ -74,17 +91,28 @@
 {% endblock %}
 
 {% block javascripts %}
+{{ parent() }}
 <script type="text/javascript">
-	$('#commande_billets').click(function(){
-		// Jerécupère le numéro des futurs champs que je vais créer
-		const index = $('#commande_billets div.form-group').length;
 
-		// Je récupère le prototype des entrées
-		const tmpl = $('#commande_billets').data('prototype').replace(/_name_/g, index);
-
-		// J'injecte ce code au sein de la div
-		$('#ad_images').append(tmpl);
-	});
+	(function ($) {
+            $(document).ready(function() {
+                var $wrapper = $('.js-billet-wrapper');
+                $wrapper.on('click', '.js-billet-add', function(e) {
+                    e.preventDefault();
+                    // je récupère le data-prototype 
+                    var billetprototype = $wrapper.data('billetprototype');
+                    // je récupère l'index
+                    var index = $wrapper.data('index');
+                    // Je remplace '__name__' dans le HTML du prototype 
+                    // par un nombre basé sur le nombre de billets 
+                    var newForm = billetprototype.replace(/__name__/g, index);
+                    // j'incrémente l'index
+                    $wrapper.data('index', index + 1);
+                    // J'injecte ce code au sein de la div js-billet-wrapper avant le bouton "nouveau billet"
+                    $(this).before(newForm);
+                });
+            });
+        })(jQuery);
 </script>
 
 {% endblock %}
