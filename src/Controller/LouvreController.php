@@ -49,41 +49,12 @@ class LouvreController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Commande $commande=null, Billet $billet=null, Request $request, ObjectManager $manager)
+    public function billetterie(Request $request, ObjectManager $manager)
     {
-        if(!$commande){
+        // if(!$commande){
             $commande = new Commande();
-        }
-               
-        // $form = $this->createForm(CommandeType::class, $commande);
+        // }
         
-        $billet = new Billet();
-        $billet->setPrenom('Toto');
-        $billet->setNom('Zigoto');
-        $billet->setTypeBillet(1);
-        $billet->setPays('');
-        $billet->setDateNaissance(new \DateTime());
-        $billet->setTarifReduit(false);
-
-        $billet2 = new Billet();
-        $billet2->setPrenom('Tata');
-        $billet2->setNom('Zigata');
-        $billet2->setTypeBillet(1);
-        $billet2->setPays('');
-        $billet2->setDateNaissance(new \DateTime());
-        $billet2->setTarifReduit(true);
-
-        $commande->addBillet($billet);
-        $commande-> addBillet($billet2);
-        $commande->setReference($this->random_reference());
-        $commande->setDateVisite(new \DateTime());
-        $commande->setPaid(false);
-
-        $commande->addBillet($billet);
-        $commande-> addBillet($billet2);
-
-        $manager->persist($commande);
-        $manager->flush();
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
@@ -94,24 +65,20 @@ class LouvreController extends AbstractController
                 $commande->setPaid(false);
             }
             $manager->persist($commande);
-            // $manager->persist($billet);
             $manager->flush();
 
             // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
         }
-
-
         
         return $this->render('louvre/billetterie.html.twig', [
             'controller_name' => 'LouvreController',
             'formCommande' => $form->createView(),
-            'modifyMode' => $commande->getId() !== null 
+            // 'modifyMode' => $commande->getId() !== null 
         ]);
     }
 
-    // là il faudra que je fasse @Route("/recapitulatif/{id}", name="recap")
     /**
-     * @Route("/recapitulatif/", name="recap")
+     * @Route("/recapitulatif/{id}", name="recap")
      */
     public function recap()
     {
