@@ -2,16 +2,16 @@
 
 {% form_theme formCommande  'bootstrap_4_layout.html.twig' %}
 
-{% form_theme formCommande _self %}
+{# {% form_theme formCommande _self %} #}
 
 {% block body %}
 
     <h1>
-    	{% if modifyMode %}
+    	{# {% if modifyMode %}
      		Modifier votre commande
-     	{% else %}
+     	{% else %} #}
      		Réserver vos billets pour le musée
-     	{% endif %}
+     	{# {% endif %} #}
     </h1>
 
     {{ form_start(formCommande, {'attr': {'novalidate': 'novalidate'}}) }}
@@ -19,11 +19,11 @@
     {{ form_row(formCommande.dateVisite) }}
 
     <button type="submit" class="btn btn-success">
-     	{% if modifyMode %}
+     	{# {% if modifyMode %}
      		Enregistrer la modification de la commande
-     	{% else %}
+     	{% else %} #}
      	Réserver
-     	{% endif %}
+     	{# {% endif %} #}
      </button>
 
     {{ form_end(formCommande) }}
