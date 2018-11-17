@@ -50,6 +50,7 @@ class LouvreController extends AbstractController
         
         // dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
+            $commande = $form->getData();
             $manager->persist($commande);
             $manager->flush();
 
