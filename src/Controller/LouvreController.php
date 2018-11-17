@@ -67,14 +67,13 @@ class LouvreController extends AbstractController
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recap()
+    public function recap(Request $request)
     {
-        $repo = $this->getDoctrine()->getRepository(Billet::class);
-        // là il faudrait que je fasse find by id_commande
-        $billets = $repo->findAll();
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repo->find($request->attributes->get('id'));
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
-            'billets' => $billets
+            'commande' => $commande
         ]);
     }
 
