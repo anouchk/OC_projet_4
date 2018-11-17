@@ -58,16 +58,12 @@ class LouvreController extends AbstractController
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
-        dump($commande);
+        // dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
-            if(!$commande->getId()) {
-                $commande->setReference($this->random_reference());
-                $commande->setPaid(false);
-            }
             $manager->persist($commande);
             $manager->flush();
 
-            // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
+        // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
         }
         
         return $this->render('louvre/billetterie.html.twig', [
