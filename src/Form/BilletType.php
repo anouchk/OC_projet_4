@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 
 class BilletType extends AbstractType
 {
@@ -24,7 +26,7 @@ class BilletType extends AbstractType
                 'multiple' => false,
             ])
             ->add('pays', CountryType::class)
-            ->add('dateNaissance')
+            ->add('dateNaissance, BirthdayType::class')
             ->add('tarifReduit')
             ->add('commande')
         ;
