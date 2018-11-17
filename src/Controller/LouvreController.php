@@ -35,16 +35,6 @@ class LouvreController extends AbstractController
         ]);
     }
 
-    private function random_reference($length=6)
-        {
-            $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $string = '';
-            for($i=0; $i<$length; $i++){
-                $string .= $chars[rand(0, strlen($chars)-1)];
-            }
-            return $string;
-        }
-
     // il faudra que je rajoute * @Route("/recap/{id}/modify, name="modification_commande")
     /**
      * @Route("/billetterie", name="billetterie")
