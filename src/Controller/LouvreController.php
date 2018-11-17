@@ -54,7 +54,7 @@ class LouvreController extends AbstractController
             $manager->persist($commande);
             $manager->flush();
 
-        // return $this->redirectToRoute('recap', ['id' => $commande->getId()])
+        return $this->redirectToRoute('recap', ['id' => $commande->getId()])
         }
         
         return $this->render('louvre/billetterie.html.twig', [
