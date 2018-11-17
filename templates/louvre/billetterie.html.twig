@@ -3,8 +3,9 @@
 {% form_theme formCommande  'bootstrap_4_layout.html.twig' %}
 
 {% import _self as formMacro %}
+
 {% macro printBilletRow(formBillet) %}
-	<div class="perso" id="block_{{id}}">
+	<div class="perso" id="">
 		{{ form_row(formBillet.nom) }}
 		{{ form_row(formBillet.prenom) }}
 		{{ form_row(formBillet.typeBillet) }}
@@ -12,7 +13,7 @@
 		{{ form_row(formBillet.dateNaissance) }}
 		{{ form_row(formBillet.tarifReduit) }}
 		<div>
-			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
+			<button type="button" data-action="delete" data-target="" class="btn btn-danger">Supprimer ce billet</button>
 		</div>
 	</div>
 {% endmacro %}
@@ -31,7 +32,23 @@
 
     {{ form_row(formCommande.dateVisite) }}
 
-    {{ form_row(formCommande.billets) }}
+    
+
+    <div 
+    	class="form-group js-billet-wrapper"
+    	data-billetprototype="{{ formMacro.printBilletRow(formCommande.billets.vars.prototype)|e('html_attr') }}"
+		data-index="{{ formCommande.billets|length }}"
+    >
+
+    	{{ form_widget(formCommande.billets) }}
+
+		<button type="button" class="btn btn-primary js-billet-add">
+			<a href="#">
+				Ajouter un billet
+			</a>
+		</button>
+
+	</div>
 
     <button type="submit" class="btn btn-success">
      	{# {% if modifyMode %}
@@ -45,22 +62,12 @@
 
 {% endblock %}
 
-{% block _ad_billets_widget %} 
-	<p> Billet i </p>
-
-{{ form_widget(form)}}
-
-<div class="form-group">
-	<button type="button" id=ad-billet class="btn btn-primary">Ajouter un billet</button>
-</div>
-
-{% endblock %}
-
 {% block javascripts %}
 {{ parent() }}
+
 <script type="text/javascript">
 
-	(function ($) {
+		(function ($) {
             $(document).ready(function() {
                 var $wrapper = $('.js-billet-wrapper');
                 $wrapper.on('click', '.js-billet-add', function(e) {
@@ -79,6 +86,7 @@
                 });
             });
         })(jQuery);
+
 </script>
 
 {% endblock %}
