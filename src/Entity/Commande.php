@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator\Constraints\JoursPasses;
 use App\Validator\Constraints\JoursFeries;
 use App\Validator\Constraints\MardiDimanche;
+use App\Validator\Constraints\DemiJournee;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
@@ -32,6 +33,7 @@ class Commande
      * @JoursPasses
      * @JoursFeries
      * @MardiDimanche
+     * @DemiJournee
      * @Assert\NotBlank(message="Vous n'avez pas renseigné la date de la visite")
      */
     private $dateVisite;
@@ -59,7 +61,7 @@ class Commande
         $this->reference = $this->random_reference();
         $this->paid = false;
     }
-    
+
     private function random_reference($length=6)
     {
         $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
