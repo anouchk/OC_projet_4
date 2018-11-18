@@ -26,7 +26,7 @@ class BilletType extends AbstractType
                 'multiple' => false,
             ])
             ->add('pays', CountryType::class)
-            ->add('dateNaissance, BirthdayType::class')
+            ->add('dateNaissance', BirthdayType::class)
             ->add('tarifReduit')
             ->add('commande')
         ;
