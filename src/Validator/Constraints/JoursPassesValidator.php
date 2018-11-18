@@ -11,7 +11,7 @@ class JoursPassesValidator extends ConstraintValidator
     public function validate($value, Constraint $constraint)
     {
         $now = new \DateTime();
-        if ($value < $now) {
+        if ($value->format('Y-m-d') < $now->format('Y-m-d')) {
             $this->context->buildViolation($constraint->message)
                           ->setParameter('** value **', $value->format('d-m-Y'))
                           ->addViolation();
