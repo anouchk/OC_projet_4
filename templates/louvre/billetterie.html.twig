@@ -6,6 +6,7 @@
 
 {% macro printBilletRow(formBillet) %}
 	<div class="perso" id="">
+
 		{{ form_row(formBillet.nom) }}
 		{{ form_row(formBillet.prenom) }}
 		{{ form_row(formBillet.typeBillet) }}
@@ -39,7 +40,7 @@
     	data-billetprototype="{{ formMacro.printBilletRow(formCommande.billets.vars.prototype)|e('html_attr') }}"
 		data-index="{{ formCommande.billets|length }}"
     >
-
+        <p> Ici, vous pouvez ajouter vos billets </p> 
     	{{ form_widget(formCommande.billets) }}
 
 		<button type="button" class="btn btn-primary js-billet-add">
@@ -69,19 +70,26 @@
 
 		(function ($) {
             $(document).ready(function() {
+                // je définis ma div dont la classe est js-billet-wrapper
                 var $wrapper = $('.js-billet-wrapper');
+
+                // lorsque je clique sur le bouton ajouter un billet, je vais agir sur cette div
                 $wrapper.on('click', '.js-billet-add', function(e) {
                     e.preventDefault();
+
                     // je récupère le data-prototype 
                     var billetprototype = $wrapper.data('billetprototype');
+
                     // je récupère l'index
                     var index = $wrapper.data('index');
-                    // Je remplace '__name__' dans le HTML du prototype 
-                    // par un nombre basé sur le nombre de billets 
+
+                    // Je remplace '__name__' dans le HTML du prototype par un nombre basé sur le rang du billet dans le tableau de billets
                     var newForm = billetprototype.replace(/__name__/g, index);
-                    // j'incrémente l'index
+
+                    // j'incrémente l'index 
                     $wrapper.data('index', index + 1);
-                    // J'injecte ce code au sein de la div js-billet-wrapper avant le bouton "nouveau billet"
+
+                    // Je place mon nouveau sous-formulaire devant la div js-billet-wrapper dont l'index a été incrémenté
                     $(this).before(newForm);
                 });
             });
