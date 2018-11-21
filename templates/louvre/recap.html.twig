@@ -19,7 +19,11 @@
 	    <tr class="table-active">
 	      <td>{{billet.nom}}</td>
 	      <td>{{billet.prenom}}</td>
-	      <td>{{billet.typeBillet}}</td>
+	      {% if billet.typeBillet == 1 %}
+	      	<td>Journée</td>
+	      {% elseif billet.typeBillet == 2 %}
+	      	<td>Demi-journée</td>
+	      {% endif %}
 	      <td>"billet.prix"</td>
 	    </tr>
 	    {% endfor %}
