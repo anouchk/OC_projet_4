@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\Constraints\DemiJournee;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BilletRepository")
@@ -31,6 +32,7 @@ class Billet
 
     /**
      * @ORM\Column(type="integer")
+     * @DemiJournee
      */
     private $typeBillet;
 
