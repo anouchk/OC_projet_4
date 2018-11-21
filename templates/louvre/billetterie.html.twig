@@ -14,7 +14,7 @@
 		{{ form_row(formBillet.dateNaissance) }}
 		{{ form_row(formBillet.tarifReduit) }}
 		<div>
-			<button type="button" data-action="delete" data-target="" class="btn btn-danger">Supprimer ce billet</button>
+			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
 		</div>
 	</div>
 {% endmacro %}
@@ -91,9 +91,21 @@
 
                     // Je place mon nouveau sous-formulaire devant la div js-billet-wrapper dont l'index a été incrémenté
                     $(this).before(newForm);
+
+                    //Je gère le bouton supprimer
+                    handleDeleteButtons();
                 });
             });
         })(jQuery);
+
+        function handleDeleteButtons() {
+            $('button[data-action="delete"]').click(function() {
+                const target = this.dataset.target;
+                $(target).remove();
+            });
+        }
+
+        handleDeleteButtons();
 
 </script>
 

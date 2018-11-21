@@ -33,16 +33,19 @@ class Billet
     /**
      * @ORM\Column(type="integer")
      * @DemiJournee
+     * @Assert\NotBlank(message="Vous n'avez pas renseigné le type de billet")
      */
     private $typeBillet;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous n'avez pas votre pays")
      */
     private $pays;
 
     /**
      * @ORM\Column(type="date")
+     * @Assert\NotBlank(message="Vous n'avez pas renseigné votre date de naissance")
      */
     private $dateNaissance;
 
