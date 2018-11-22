@@ -32,7 +32,6 @@ class Billet
 
     /**
      * @ORM\Column(type="integer")
-     * @DemiJournee
      * @Assert\NotBlank(message="Vous n'avez pas renseigné le type de billet")
      */
     private $typeBillet;

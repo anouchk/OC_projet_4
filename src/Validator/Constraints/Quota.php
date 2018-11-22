@@ -1,15 +1,19 @@
 <?php
+
 namespace App\Validator\Constraints;
+
+
 use Symfony\Component\Validator\Constraint;
+
 /**
  * @Annotation
  */
-class DemiJournee extends Constraint
+class Quota extends Constraint
 {
-    public $message = "Vous ne pouvez pas réserver un billet à la journée pour aujourd'hui car il est 14h passées : prenez un billet demi-journée";
+    public $message = 'Il ne reste plus assez de billets pour ce jour. Nombre de billets restants : **string**';
 
     public function getTargets()
     {
         return self::CLASS_CONSTRAINT;
     }
-} 
+}

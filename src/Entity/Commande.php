@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Validator\Constraints\DemiJournee;
+use App\Validator\Constraints\Quota;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -13,6 +15,8 @@ use App\Validator\Constraints\MardiDimanche;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
+ * @DemiJournee()
+ * @Quota()
  */
 class Commande
 {
@@ -43,7 +47,11 @@ class Commande
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true, cascade={"persist"})
-     
+     * @Assert\Count(
+     *     min="1",
+     *     minMessage="Vous ne pouvez pas réserver sans billets"
+     * )
+     * @Assert\Valid()
      */
     private $billets;
 

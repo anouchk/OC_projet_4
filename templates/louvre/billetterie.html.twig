@@ -5,7 +5,7 @@
 {% import _self as formMacro %}
 
 {% macro printBilletRow(formBillet) %}
-	<div class="perso" id="">
+	<div class="js-billet" id="">
 
 		{{ form_row(formBillet.nom) }}
 		{{ form_row(formBillet.prenom) }}
@@ -14,7 +14,7 @@
 		{{ form_row(formBillet.dateNaissance) }}
 		{{ form_row(formBillet.tarifReduit) }}
 		<div>
-			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
+			<button type="button" data-action="delete" data-target="#block_" class="btn btn-danger js-supprimer-billet">Supprimer ce billet</button>
 		</div>
 	</div>
 {% endmacro %}
@@ -30,6 +30,8 @@
     </h1>
 
     {{ form_start(formCommande, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_errors(formCommande) }}
 
     {{ form_row(formCommande.dateVisite) }}
 
@@ -73,6 +75,12 @@
                 // je définis ma div dont la classe est js-billet-wrapper
                 var $wrapper = $('.js-billet-wrapper');
 
+                $wrapper.on('click', '.js-supprimer-billet', function(e) {
+                    $(this).closest('.js-billet')
+                        .fadeOut()
+                        .remove();
+                });
+
                 // lorsque je clique sur le bouton ajouter un billet, je vais agir sur cette div
                 $wrapper.on('click', '.js-billet-add', function(e) {
                     e.preventDefault();
@@ -91,21 +99,9 @@
 
                     // Je place mon nouveau sous-formulaire devant la div js-billet-wrapper dont l'index a été incrémenté
                     $(this).before(newForm);
-
-                    //Je gère le bouton supprimer
-                    handleDeleteButtons();
                 });
             });
         })(jQuery);
-
-        function handleDeleteButtons() {
-            $('button[data-action="delete"]').click(function() {
-                const target = this.dataset.target;
-                $(target).remove();
-            });
-        }
-
-        handleDeleteButtons();
 
 </script>
 
