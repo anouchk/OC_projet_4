@@ -45,7 +45,11 @@ class Commande
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Billet", mappedBy="commande", orphanRemoval=true, cascade={"persist"})
-     
+     * @Assert\Count(
+     *     min="1",
+     *     minMessage="Vous ne pouvez pas réserver sans billets"
+     * )
+     * @Assert\Valid()
      */
     private $billets;
 
