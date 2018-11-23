@@ -5,7 +5,7 @@
 {% import _self as formMacro %}
 
 {% macro printBilletRow(formBillet) %}
-	<div class="perso" id="">
+	<div class="js-billet" id="">
 
 		{{ form_row(formBillet.nom) }}
 		{{ form_row(formBillet.prenom) }}
@@ -14,7 +14,7 @@
 		{{ form_row(formBillet.dateNaissance) }}
 		{{ form_row(formBillet.tarifReduit) }}
 		<div>
-			<button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">Supprimer ce billet</button>
+			<button type="button" data-action="delete" data-target="#formBillet_" class="btn btn-danger js-supprimer-billet">Supprimer ce billet</button>
 		</div>
 	</div>
 {% endmacro %}
@@ -93,19 +93,14 @@
                     $(this).before(newForm);
 
                     //Je gère le bouton supprimer
-                    handleDeleteButtons();
+                    $wrapper.on('click', '.js-supprimer-billet', function(e) {
+                        $(this).closest('.js-billet')
+                            .fadeOut()
+                            .remove();
+                    });
                 });
             });
         })(jQuery);
-
-        function handleDeleteButtons() {
-            $('button[data-action="delete"]').click(function() {
-                const target = this.dataset.target;
-                $(target).remove();
-            });
-        }
-
-        handleDeleteButtons();
 
 </script>
 
