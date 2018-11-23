@@ -15,6 +15,7 @@ use App\Validator\Constraints\DemiJournee;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommandeRepository")
  * @DemiJournee()
+ * @Quota()
  */
 class Commande
 {
