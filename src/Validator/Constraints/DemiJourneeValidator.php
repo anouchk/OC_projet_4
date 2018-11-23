@@ -15,7 +15,7 @@ class DemiJourneeValidator extends ConstraintValidator
         foreach ($commande->getBillets() as $billet) {
         	if (
         		$commande->getDateVisite()->format('Y-m-d') == $now->format('Y-m-d') &&
-        		$now->format('H') > 14
+        		$now->format('H') > 14 &&
         		$billet->getTypeBillet() == 1
         	) {
         		$this->context->buildViolation($constraint->message)
