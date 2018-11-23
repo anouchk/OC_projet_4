@@ -22,12 +22,12 @@ class QuotaValidator extends ConstraintValidator
     public function validate($commande, Constraint $quota)
     {
         $nombreDeBilletsVendus = $this->commandeRepository->nombreDeBilletsVendus($commande->getDateVisite());
-        if (3 - $nombreDeBilletsVendus < 0) {
+        if (1000 - $nombreDeBilletsVendus < 0) {
             $string = 0;
         } else {
-            $string = 3 - $nombreDeBilletsVendus;
+            $string = 1000 - $nombreDeBilletsVendus;
         }
-        if ($nombreDeBilletsVendus + sizeof($commande->getBillets()) > 3) {
+        if ($nombreDeBilletsVendus + sizeof($commande->getBillets()) > 1000) {
             $this->context->buildViolation($quota->message)
                 ->setParameter('**string**', $string)
                 ->addViolation();
