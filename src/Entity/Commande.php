@@ -10,6 +10,7 @@ use App\Validator\Constraints\JoursPasses;
 use App\Validator\Constraints\JoursFeries;
 use App\Validator\Constraints\MardiDimanche;
 use App\Validator\Constraints\DemiJournee;
+use App\Validator\Constraints\Quota;
 
 
 /**
