@@ -31,6 +31,8 @@
 
     {{ form_start(formCommande, {'attr': {'novalidate': 'novalidate'}}) }}
 
+    {{ form_errors(formCommande) }}
+
     {{ form_row(formCommande.dateVisite) }}
 
     
