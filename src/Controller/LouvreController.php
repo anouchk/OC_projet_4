@@ -69,6 +69,8 @@ class LouvreController extends AbstractController
      */
     public function recap(Request $request)
     {
+        $now = new \DateTime();
+
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
         return $this->render('louvre/recap.html.twig', [
