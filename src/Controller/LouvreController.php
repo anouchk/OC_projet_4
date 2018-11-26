@@ -139,4 +139,34 @@ class LouvreController extends AbstractController
             // The card has been declined
         }
     }
+
+    public function mail($name, \Swift_Mailer $mailer)
+    {
+        $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
+            ->setFrom('analutzky@gmail.com')
+            ->setTo('analutzky@gmail.com')
+            ->setBody(
+                $this->renderView(
+                    // templates/mail.html.twig
+                    'mail.html.twig',
+                    array('name' => $name)
+                ),
+                'text/html'
+            )
+            /*
+             * If you also want to include a plaintext version of the message
+            ->addPart(
+                $this->renderView(
+                    'mail.txt.twig',
+                    array('name' => $name)
+                ),
+                'text/plain'
+            )
+            */
+        ;
+
+        $mailer->send($message);
+
+        return $this->render(...);
+    }
 }
