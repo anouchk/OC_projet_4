@@ -140,7 +140,7 @@ class LouvreController extends AbstractController
         }
     }
 
-    public function mail($name, \Swift_Mailer $mailer)
+    public function mail($commande, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
             ->setFrom('analutzky@gmail.com')
@@ -149,7 +149,7 @@ class LouvreController extends AbstractController
                 $this->renderView(
                     // templates/mail.html.twig
                     'mail.html.twig',
-                    array('name' => $name)
+                    array('commande' => $commande)
                 ),
                 'text/html'
             )
