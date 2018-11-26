@@ -61,6 +61,12 @@ class Commande
      */
     private $client;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prix;
+
+
     public function __construct()
     {
         $this->billets = new ArrayCollection();
@@ -164,5 +170,17 @@ class Commande
 
     public function __toString() {
         return 'la Commande ';
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?int $prix): self
+    {
+        $this->prix = $prix;
+
+        return $this;
     }
 }

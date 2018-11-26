@@ -67,15 +67,35 @@ class LouvreController extends AbstractController
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recap(Request $request)
+    public function recap(Request $request, ObjectManager $manager)
     {
-        $now = new \DateTime();
-
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
+
+        foreach ($commande->getBillets() as $billet) {
+            $now = new \DateTime();
+            $age = $billet->getDateNaissance()->diff($now)->format('%y%');
+            if ($billet->getTypeBillet() == 2) {
+                $billet->setPrix(8);
+            } elseif 
+                ($billet->getTarifReduit() == 1) {
+                $billet->setPrix(10);
+            } elseif ($age > 60 ) {
+                $billet->setPrix(12);
+            } elseif (12 < $age && $age < 60) { 
+                $billet->setPrix(16);
+            } elseif (4 < $age && $age < 12) {
+                $billet->setPrix(8);
+            } elseif ($age < 4) {
+                $billet->setPrix(0);
+            }  
+            $manager->persist($billet);
+            $manager->flush();
+        }
+       
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
-            'commande' => $commande
+            'commande' => $commande,
         ]);
     }
 

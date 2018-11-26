@@ -59,6 +59,11 @@ class Billet
      */
     private $commande;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $prix;
+
 
     public function getId(): ?int
     {
@@ -145,6 +150,19 @@ class Billet
     public function setCommande(?Commande $commande): self
     {
         $this->commande = $commande;
+
+        return $this;
+    }
+
+    public function getPrix(): ?int
+    {
+        return $this->prix;
+    }
+
+    public function setPrix(?int $prix): self
+    {
+
+        $this->prix = $prix;
 
         return $this;
     }
