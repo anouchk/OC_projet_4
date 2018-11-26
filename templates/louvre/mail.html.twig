@@ -6,7 +6,7 @@
 
     <h2> Date de la visite : {{commande.dateVisite}} </h2>
 
-    <h3> Référence : {{commande.reference}} </h3>
+    <h3> Référence de votre commande n° {{commande.reference}} </h3>
 
     <table class="table table-hover">
 	  <thead>
@@ -28,13 +28,7 @@
 	      {% elseif billet.typeBillet == 2 %}
 	      	<td>Demi-journée</td>
 	      {% endif %}
-	      <td> 
-
-	      		{{billet.prix}}
-
-	      	
-
-	      </td>
+	      <td> {{billet.prix}}</td>
 	    </tr>
 	    {% endfor %}
 	  </tbody>

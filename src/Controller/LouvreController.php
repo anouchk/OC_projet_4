@@ -167,6 +167,8 @@ class LouvreController extends AbstractController
 
         $mailer->send($message);
 
-        return $this->render(...);
+        return $this->render('louvre/infosPratiques.html.twig', [
+            'controller_name' => 'LouvreController',
+        ]);
     }
 }
