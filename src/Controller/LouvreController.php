@@ -118,17 +118,17 @@ class LouvreController extends AbstractController
 
     /**
      * @Route(
-     *     "/checkout",
+     *     "/checkout/{id}",
      *     name="order_checkout",
      *     methods="POST"
      * )
      */
-
     public function checkoutAction(Request $request)
     {
         
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
+        $prixCommande = $commande->getPrix();
 
         \Stripe\Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
         // Get the credit card details submitted by the form
@@ -136,7 +136,7 @@ class LouvreController extends AbstractController
         // Create a charge: this will charge the user's card
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => 1000, // Amount in cents
+                "amount" => $prixCommande, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"

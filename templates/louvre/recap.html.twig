@@ -46,11 +46,11 @@
 	<h1>Paiement de votre commande : </h1>
     <div>
         Vous êtes sur le point de payer votre réservation 
-            <form action="{{ path('order_checkout') }}" method="POST">
+            <form action="{{ path('order_checkout', { 'id': commande.id }) }}" method="POST">
                         <script
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="pk_test_DMiADShJSyoZEBEHabm71UC1"
-                                data-amount="99500"
+                                data-amount="{{commande.prix * 100}}"
                                 data-name="Paiemen resas Louvre"
                                 data-description="Widget"
                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
