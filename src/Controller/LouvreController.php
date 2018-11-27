@@ -122,7 +122,7 @@ class LouvreController extends AbstractController
      *     name="order_checkout",
      *     methods="POST"
      * )
-     */
+     */ 
     public function checkoutAction(Request $request)
     {
         
@@ -136,26 +136,29 @@ class LouvreController extends AbstractController
         // Create a charge: this will charge the user's card
         try {
             $charge = \Stripe\Charge::create(array(
-                "amount" => $prixCommande, // Amount in cents
+                "amount" => $prixCommande * 100, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"
             ));
             $this->addFlash("success","Le paiement a bien été effectué !");
-            return $this->redirectToRoute("mail");
+            return $this->redirectToRoute("mail,  array('id' => $commande->getId())");
         	} 
         catch(\Stripe\Error\Card $e) {
             $this->addFlash("error","Le paiement n'est pas passé :(");
-            return $this->redirectToRoute("mail");
+            return $this->redirectToRoute("recap, array('id' => $commande->getId()");
             // The card has been declined
         }
     }
 
     /**
-     * @Route("/confirmation", name="mail")
+     * @Route("/confirmation/{id}", name="mail")
      */
     public function mail($commande, \Swift_Mailer $mailer)
     {
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repo->find($request->attributes->get('id'));
+
         $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
             ->setFrom('analutzky@gmail.com')
             ->setTo('analutzky@gmail.com')
