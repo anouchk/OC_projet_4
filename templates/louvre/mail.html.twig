@@ -4,7 +4,7 @@
 
     <h1>Merci d'avoir réservé vos places pour le musée du Louvre. Voici le récapitulatif de votre commande</h1>
 
-    <h2> Date de la visite : {{commande.dateVisite}} </h2>
+    <h2> Date de la visite : {{commande.dateVisite|date('Y/m/d')}} </h2>
 
     <h3> Référence de votre commande n° {{commande.reference}} </h3>
 

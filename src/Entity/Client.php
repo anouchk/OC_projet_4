@@ -26,6 +26,11 @@ class Client
      */
     private $commande;
 
+    public function __construct(string $email)
+    {
+        $this->mail = $email;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
