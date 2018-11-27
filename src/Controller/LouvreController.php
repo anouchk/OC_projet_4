@@ -131,15 +131,18 @@ class LouvreController extends AbstractController
                 "description" => "Paiement Stripe - Réservations Louvre"
             ));
             $this->addFlash("success","Le paiement a bien été effectué !");
-            return $this->redirectToRoute("recap");
+            return $this->redirectToRoute("mail");
         	} 
         catch(\Stripe\Error\Card $e) {
             $this->addFlash("error","Le paiement n'est pas passé :(");
-            return $this->redirectToRoute("recap");
+            return $this->redirectToRoute("mail");
             // The card has been declined
         }
     }
 
+    /**
+     * @Route("/confirmation", name="mail")
+     */
     public function mail($commande, \Swift_Mailer $mailer)
     {
         $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
@@ -167,7 +170,17 @@ class LouvreController extends AbstractController
 
         $mailer->send($message);
 
-        return $this->render('louvre/infosPratiques.html.twig', [
+        return $this->render('louvre/bye.html.twig', [
+            'controller_name' => 'LouvreController',
+        ]);
+    }
+
+    /**
+     * @Route("/merci", name="bye")
+     */
+    public function bye()
+    {
+        return $this->render('louvre/bye.html.twig', [
             'controller_name' => 'LouvreController',
         ]);
     }

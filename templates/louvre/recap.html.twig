@@ -2,7 +2,11 @@
 
 {% block body %}
 
-    <h1>Voici le récapitulatif de votre commande</h1>
+    <h1>Récapitulatif de votre commande :</h1>
+
+    <h5> Date de la visite : {{commande.dateVisite|date("m/d/Y") }} </h5>
+
+    <h5> Référence de commande : {{commande.reference}} </h5>
 
     <table class="table table-hover">
 	  <thead>
@@ -36,7 +40,10 @@
 	  </tbody>
 	</table> 
 
+	<h5> Prix total : {{commande.prix}} </h5>
 
+
+	<h1>Paiement de votre commande : </h1>
     <div>
         Vous êtes sur le point de payer votre réservation 
             <form action="{{ path('order_checkout') }}" method="POST">
