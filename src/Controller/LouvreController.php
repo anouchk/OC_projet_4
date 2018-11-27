@@ -71,6 +71,7 @@ class LouvreController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
+        $prixTotal = 0;
 
         foreach ($commande->getBillets() as $billet) {
             $now = new \DateTime();
@@ -90,6 +91,12 @@ class LouvreController extends AbstractController
                 $billet->setPrix(0);
             }  
             $manager->persist($billet);
+            $manager->flush();
+            // calcul du prix total de la commande
+            $prixTotal = $prixTotal + $billet->getPrix();
+            dump($prixTotal) ;
+            $commande->setPrix($prixTotal);
+            $manager->persist($commande);
             $manager->flush();
         }
        
@@ -117,8 +124,12 @@ class LouvreController extends AbstractController
      * )
      */
 
-    public function checkoutAction()
+    public function checkoutAction(Request $request)
     {
+        
+        $repo = $this->getDoctrine()->getRepository(Commande::class);
+        $commande = $repo->find($request->attributes->get('id'));
+
         \Stripe\Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
         // Get the credit card details submitted by the form
         $token = $_POST['stripeToken'];
