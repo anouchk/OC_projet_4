@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Billet;
 use App\Entity\Commande;
+use App\Entity\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
@@ -125,7 +126,8 @@ class LouvreController extends AbstractController
      */ 
     public function checkoutAction(Request $request)
     {
-        
+        $email = $request->request->get('stripeEmail');
+        $client = new Client($email);
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
         $prixCommande = $commande->getPrix();
@@ -142,11 +144,16 @@ class LouvreController extends AbstractController
                 "description" => "Paiement Stripe - Réservations Louvre"
             ));
             $this->addFlash("success","Le paiement a bien été effectué !");
-            return $this->redirectToRoute("mail,  array('id' => $commande->getId())");
+            $commande->setPaid(true);
+            $commande->setClient($client);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($commande);
+            $em->flush();
+            return $this->redirectToRoute("mail",  array('id' => $commande->getId()));
         	} 
         catch(\Stripe\Error\Card $e) {
             $this->addFlash("error","Le paiement n'est pas passé :(");
-            return $this->redirectToRoute("recap, array('id' => $commande->getId()");
+            return $this->redirectToRoute("recap, array('id' => $commande->getId())");
             // The card has been declined
         }
     }
@@ -154,7 +161,7 @@ class LouvreController extends AbstractController
     /**
      * @Route("/confirmation/{id}", name="mail")
      */
-    public function mail($commande, \Swift_Mailer $mailer)
+    public function mail(Request $request, \Swift_Mailer $mailer)
     {
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
@@ -165,7 +172,7 @@ class LouvreController extends AbstractController
             ->setBody(
                 $this->renderView(
                     // templates/mail.html.twig
-                    'mail.html.twig',
+                    'louvre/mail.html.twig',
                     array('commande' => $commande)
                 ),
                 'text/html'
