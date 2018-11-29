@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Client;
+use App\Service\CommandeManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Billet;
@@ -40,20 +41,18 @@ class LouvreController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, ObjectManager $manager)
+    public function billetterie(Request $request, CommandeManager $commande_manager)
     {
-        // if(!$commande){
-            $commande = new Commande();
-        // }
+        $commande_manager->initialize();
+        $commande = $commande_manager->getCommande();
         
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
         
         // dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
-            $commande = $form->getData();
-            $manager->persist($commande);
-            $manager->flush();
+            $commande_manager->computePrice($form->getData());
+            $commande_manager->save();
 
         return $this->redirectToRoute('recap', ['id' => $commande->getId()]);
         }
@@ -72,34 +71,6 @@ class LouvreController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
-        $prixTotal = 0;
-
-        foreach ($commande->getBillets() as $billet) {
-            $now = new \DateTime();
-            $age = $billet->getDateNaissance()->diff($now)->format('%y%');
-            if ($billet->getTypeBillet() == 2) {
-                $billet->setPrix(8);
-            } elseif 
-                ($billet->getTarifReduit() == 1) {
-                $billet->setPrix(10);
-            } elseif ($age > 60 ) {
-                $billet->setPrix(12);
-            } elseif (12 < $age && $age < 60) { 
-                $billet->setPrix(16);
-            } elseif (4 < $age && $age < 12) {
-                $billet->setPrix(8);
-            } elseif ($age < 4) {
-                $billet->setPrix(0);
-            }  
-            $manager->persist($billet);
-            $manager->flush();
-            // calcul du prix total de la commande
-            $prixTotal = $prixTotal + $billet->getPrix();
-            dump($prixTotal) ;
-            $commande->setPrix($prixTotal);
-            $manager->persist($commande);
-            $manager->flush();
-        }
        
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
