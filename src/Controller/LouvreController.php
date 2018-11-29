@@ -75,8 +75,7 @@ class LouvreController extends AbstractController
         $prixTotal = 0;
 
         foreach ($commande->getBillets() as $billet) {
-            $now = new \DateTime();
-            $age = $billet->getDateNaissance()->diff($now)->format('%y%');
+            $age = $billet->getDateNaissance()->diff($commande->getDateVisite())->format('%y%');
             if ($billet->getTypeBillet() == 2) {
                 $billet->setPrix(8);
             } elseif 
