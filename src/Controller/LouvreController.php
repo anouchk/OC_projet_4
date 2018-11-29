@@ -43,7 +43,6 @@ class LouvreController extends AbstractController
      */
     public function billetterie(Request $request, CommandeManager $commande_manager)
     {
-        $commande_manager->initialize();
         $commande = $commande_manager->getCommande();
         
         $form = $this->createForm(CommandeType::class, $commande);
@@ -67,10 +66,9 @@ class LouvreController extends AbstractController
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recap(Request $request, ObjectManager $manager)
+    public function recap(Request $request, CommandeManager $commande_manager)
     {
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($request->attributes->get('id'));
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
        
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
@@ -95,40 +93,15 @@ class LouvreController extends AbstractController
      *     methods="POST"
      * )
      */ 
-    public function checkoutAction(Request $request)
+    public function checkoutAction(Request $request, CommandeManager $commande_manager)
     {
-        $email = $request->request->get('stripeEmail');
-        $client = new Client($email);
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($request->attributes->get('id'));
-
-
-
-        $prixCommande = $commande->getPrix();
-
-        \Stripe\Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
-        // Get the credit card details submitted by the form
-        $token = $_POST['stripeToken'];
-        // Create a charge: this will charge the user's card
-        try {
-            $charge = \Stripe\Charge::create(array(
-                "amount" => $prixCommande * 100, // Amount in cents
-                "currency" => "eur",
-                "source" => $token,
-                "description" => "Paiement Stripe - Réservations Louvre"
-            ));
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
+        if($commande_manager->paiement()) {
             $this->addFlash("success","Le paiement a bien été effectué !");
-            $commande->setPaid(true);
-            $commande->setClient($client);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($commande);
-            $em->flush();
             return $this->redirectToRoute("mail",  array('id' => $commande->getId()));
-        	} 
-        catch(\Stripe\Error\Card $e) {
+        } else {
             $this->addFlash("error","Le paiement n'est pas passé :(");
             return $this->redirectToRoute("recap", array('id' => $commande->getId()));
-            // The card has been declined
         }
     }
 

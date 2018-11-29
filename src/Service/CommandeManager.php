@@ -22,14 +22,26 @@ class CommandeManager
     private $commandeRepository;
 
     /**
+     * @var Paiement
+     */
+    private $paiement;
+
+    /**
+     * @var ClientManager
+     */
+    private $clientManager;
+
+    /**
      * CommandeManager constructor.
      *
      * @param BilletManager $billetManager
      */
-    public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository)
+    public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository, Paiement $paiement, ClientManager $clientManager)
     {
         $this->billetManager = $billetManager;
         $this->commandeRepository = $commandeRepository;
+        $this->paiement = $paiement;
+        $this->clientManager = $clientManager;
     }
 
     public function initialize()
@@ -37,8 +49,14 @@ class CommandeManager
         $this->commande = new Commande();
     }
 
-    public function getCommande()
+    public function getCommande($id = null)
     {
+        if (is_null($id)) {
+            $this->commande = new Commande();
+        } else {
+            $this->commande = $this->commandeRepository->find($id);
+        }
+
         return $this->commande;
     }
 
@@ -76,5 +94,28 @@ class CommandeManager
     public function save()
     {
         $this->commandeRepository->save($this->commande);
+    }
+
+    public function paiement()
+    {
+        if($this->paiement->paiement($this->commande)) {
+
+            $this->paiementValidProcess();
+
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    private function paiementValidProcess()
+    {
+        $this->clientManager->create();
+        $client = $this->clientManager->getClient();
+        $this->commande->setPaid(true);
+        $this->commande->setClient($client);
+        $this->save();
+
     }
 }
