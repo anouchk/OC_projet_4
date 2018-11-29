@@ -26,7 +26,7 @@ class BilletType extends AbstractType
                 'multiple' => false,
             ])
             ->add('pays', CountryType::class, [
-                'preferred_choices' => ['France'],
+                'preferred_choices' => ['FR'],
             ])
             ->add('dateNaissance', BirthdayType::class)
             ->add('tarifReduit')
