@@ -53,7 +53,7 @@
                                 data-amount="{{commande.prix * 100}}"
                                 data-name="Réglement de {{commande.billets|length}} billet(s)"
                                 data-description="Musée du Louvre"
-                                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                data-image="{{ asset('images/louvre.jpg') }}"
                                 data-locale="{{app.request.locale}}"
                                 data-label="Payer par carte"
                                 data-currency="eur">
