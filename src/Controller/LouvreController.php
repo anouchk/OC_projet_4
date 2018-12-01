@@ -142,7 +142,6 @@ class LouvreController extends AbstractController
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"
             ));
-            $this->addFlash("success","Le paiement a bien été effectué !");
             $commande->setPaid(true);
             $commande->setClient($client);
             $em = $this->getDoctrine()->getManager();
