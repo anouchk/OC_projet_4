@@ -143,6 +143,10 @@ class Commande
         return $this;
     }
 
+    public function __toString() {
+        return 'la Commande ';
+    }
+
     public function removeBillet(Billet $billet): self
     {
         if ($this->billets->contains($billet)) {
