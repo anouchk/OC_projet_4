@@ -168,10 +168,6 @@ class Commande
         return $this;
     }
 
-    public function __toString() {
-        return 'la Commande ';
-    }
-
     public function getPrix(): ?int
     {
         return $this->prix;
