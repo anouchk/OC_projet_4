@@ -96,8 +96,11 @@ class LouvreController extends AbstractController
      *     methods="POST"
      * )
      */ 
-    public function checkoutAction(Request $request)
+    public function checkoutAction(Request $request, CommandeManager $commande_manager)
     {
+        $commande_manager->getCommande($request->attributes->get('id'));
+        $commande_manager->paiement();
+
         $email = $request->request->get('stripeEmail');
         $client = new Client($email);
         $repo = $this->getDoctrine()->getRepository(Commande::class);
