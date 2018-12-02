@@ -90,6 +90,17 @@ class CommandeManager
 
 	public function paiement()
 	{
-		$this->paiement->paiement($this->commande);
+		if($this->paiement->paiement($this->commande))
+		{
+			$this->paiementValidProcess();
+
+		} else {
+
+		};
+	}
+
+	private function paiementValidProcess()
+	{
+		$this->commande->setPaid(true);
 	}
 }
