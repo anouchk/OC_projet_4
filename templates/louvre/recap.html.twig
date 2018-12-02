@@ -60,11 +60,6 @@
                         </script>
             </form>
             <div>
-		      {% for message in app.session.flashbag.get('success') %}
-
-		        <p>Message flash : {{ message }}</p>
-
-		      {% endfor %}
 
 		      {% for message in app.session.flashbag.get('error') %}
 

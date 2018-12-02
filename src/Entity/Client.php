@@ -26,7 +26,7 @@ class Client
      */
     private $commande;
 
-        public function __construct(string $email)
+    public function __construct(string $email)
     {
         $this->mail = $email;
     }

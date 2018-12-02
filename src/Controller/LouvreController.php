@@ -40,7 +40,7 @@ class LouvreController extends AbstractController
     /**
      * @Route("/billetterie", name="billetterie")
      */
-    public function billetterie(Request $request, ObjectManager $manager)
+    public function billetterie(Request $request, ObjectManager $manager, CommandeManager $commande_manager)
     {
         // if(!$commande){
             $commande = new Commande();
