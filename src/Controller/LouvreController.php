@@ -43,8 +43,11 @@ class LouvreController extends AbstractController
     public function billetterie(Request $request, ObjectManager $manager, CommandeManager $commande_manager)
     {
         // if(!$commande){
-            $commande = new Commande();
+            // $commande = new Commande();
         // }
+
+        $commande_manager->initialize();
+        $commande = $commande_manager->getCommande();
         
         $form = $this->createForm(CommandeType::class, $commande);
         $form->handleRequest($request);
