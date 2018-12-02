@@ -17,6 +17,11 @@ class CommandeManager
 	private $billetManager;
 
 	/**
+	 * @var ClientManager
+	 */
+	private $clientManager;
+
+	/**
 	 * @var CommandeRepository
 	 */
 	private $commandeRepository;
@@ -31,11 +36,12 @@ class CommandeManager
 	 *
 	 * @param BilletManager $billetManager
 	 */
-	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository, Paiement $paiement)
+	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository, Paiement $paiement, ClientManager $clientManager, )
 	{
 		$this->billetManager = $billetManager;
 		$this->commandeRepository = $commandeRepository;
 		$this->paiement = $paiement;
+		$this->clientManager = $clientManager;
 	}
 
 	public function initialize()
@@ -101,6 +107,9 @@ class CommandeManager
 
 	private function paiementValidProcess()
 	{
+		$this->clientManager->create();
+		$client = $this->clientManager->getClient();
 		$this->commande->setPaid(true);
+		$this->commande->setClient($client);
 	}
 }
