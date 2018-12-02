@@ -12,7 +12,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\CommandeType;
-use App\Form\FauxBilletType;
+use App\Service\CommandeManager;
 
 class LouvreController extends AbstractController
 {
@@ -74,33 +74,6 @@ class LouvreController extends AbstractController
     {
         $repo = $this->getDoctrine()->getRepository(Commande::class);
         $commande = $repo->find($request->attributes->get('id'));
-        $prixTotal = 0;
-
-        foreach ($commande->getBillets() as $billet) {
-            $age = $billet->getDateNaissance()->diff($commande->getDateVisite())->format('%y%');
-            if ($billet->getTypeBillet() == 2) {
-                $billet->setPrix(8);
-            } elseif 
-                ($billet->getTarifReduit() == 1) {
-                $billet->setPrix(10);
-            } elseif ($age > 60 ) {
-                $billet->setPrix(12);
-            } elseif (12 < $age && $age < 60) { 
-                $billet->setPrix(16);
-            } elseif (4 < $age && $age < 12) {
-                $billet->setPrix(8);
-            } elseif ($age < 4) {
-                $billet->setPrix(0);
-            }  
-            $manager->persist($billet);
-            $manager->flush();
-            // calcul du prix total de la commande
-            $prixTotal = $prixTotal + $billet->getPrix();
-            dump($prixTotal) ;
-            $commande->setPrix($prixTotal);
-            $manager->persist($commande);
-            $manager->flush();
-        }
        
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',

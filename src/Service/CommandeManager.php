@@ -1,7 +1,10 @@
 <?php
 namespace App\Service;
 
-class CommandeMannager 
+use App\Entity\Commande;
+use App\Repository\CommandeRepository;
+
+class CommandeManager 
 {
 	/**
 	 * @var Commande
@@ -25,7 +28,7 @@ class CommandeMannager
 	 */
 	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository)
 	{
-		$this->Billetmanager = $billetManager;
+		$this->billetManager = $billetManager;
 		$this->CommandeRepository = $commandeRepository;
 	}
 
