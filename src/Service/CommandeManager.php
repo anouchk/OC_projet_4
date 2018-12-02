@@ -91,7 +91,7 @@ class CommandeManager
 
 	public function save()
 	{
-		$this->CommandeRepository->save($this->commande);
+		$this->commandeRepository->save($this->commande);
 	}
 
 	public function paiement()
