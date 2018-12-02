@@ -111,5 +111,6 @@ class CommandeManager
 		$client = $this->clientManager->getClient();
 		$this->commande->setPaid(true);
 		$this->commande->setClient($client);
+		$this->save();
 	}
 }
