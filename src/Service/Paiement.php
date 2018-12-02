@@ -31,16 +31,12 @@ class Paiement
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"
             ]);
-            $commande->setPaid(true);
-            $commande->setClient($client);
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($commande);
-            $em->flush();
-            return $this->redirectToRoute("mail",  array('id' => $commande->getId()));
-        	} 
+            
+            return true; 
+
         catch(Card $e) {
-            $this->addFlash("error","Le paiement n'est pas passé :(");
-            return $this->redirectToRoute("recap, array('id' => $commande->getId())");
+            
+            return false;
             // The card has been declined
 	}
 }

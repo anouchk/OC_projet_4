@@ -23,7 +23,7 @@ class ClientManager
 
 	public function create(Request $request)
 	{
-		$this->client = return new Client($this->request->request->get('stripeEmail'));
+		$this->client = new Client($this->request->request->get('stripeEmail'));
 	}
 
 	public function getClient()

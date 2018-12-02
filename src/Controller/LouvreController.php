@@ -98,7 +98,7 @@ class LouvreController extends AbstractController
      */ 
     public function checkoutAction(Request $request, CommandeManager $commande_manager)
     {
-        $commande_manager->getCommande($request->attributes->get('id'));
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
         if($commande_manager->paiement()) {
             return $this->redirectToRoute("mail",  array('id' => $commande->getId()));
         } else {

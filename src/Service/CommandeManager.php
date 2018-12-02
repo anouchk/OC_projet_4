@@ -36,7 +36,7 @@ class CommandeManager
 	 *
 	 * @param BilletManager $billetManager
 	 */
-	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository, Paiement $paiement, ClientManager $clientManager, )
+	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository, Paiement $paiement, ClientManager $clientManager)
 	{
 		$this->billetManager = $billetManager;
 		$this->commandeRepository = $commandeRepository;
