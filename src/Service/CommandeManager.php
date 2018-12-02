@@ -100,7 +100,11 @@ class CommandeManager
 		{
 			$this->paiementValidProcess();
 
+			return true;
+
 		} else {
+
+			return false;
 
 		};
 	}
