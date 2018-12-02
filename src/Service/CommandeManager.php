@@ -90,6 +90,6 @@ class CommandeManager
 
 	public function paiement()
 	{
-		
+		$this->paiement->paiement($this->commande);
 	}
 }
