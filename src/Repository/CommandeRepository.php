@@ -36,6 +36,12 @@ class CommandeRepository extends ServiceEntityRepository
         return $query->getSingleScalarResult();
     }
 
+    public function save (Commande $commande)
+    {
+        $this->_em->persist($commande);
+        $this->_em->flush();
+    }
+
     // /**
     //  * @return Commande[] Returns an array of Commande objects
     //  */

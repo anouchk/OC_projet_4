@@ -14,13 +14,19 @@ class CommandeMannager
 	private $billetManager;
 
 	/**
+	 * @var CommandeRepository
+	 */
+	private $commandeRepository;
+
+	/**
 	 * @var CommandeManager constructor
 	 *
 	 * @param BilletManager $billetManager
 	 */
-	public function __construct(BilletManager $BilletManager)
+	public function __construct(BilletManager $billetManager, CommandeRepository $commandeRepository)
 	{
 		$this->Billetmanager = $billetManager;
+		$this->CommandeRepository = $commandeRepository;
 	}
 
 	public function initialize()
@@ -61,5 +67,10 @@ class CommandeMannager
 
         $this->commande->setPrix($prixTotal);
 
+	}
+
+	public function save ()
+	{
+		$this->CommandeRepository->save($this->commande);
 	}
 }

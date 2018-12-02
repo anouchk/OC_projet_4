@@ -55,8 +55,7 @@ class LouvreController extends AbstractController
         // dump($commande);
         if($form->isSubmitted() && $form->isValid()) {
             $commande_manager->computePrice($form->getData());
-            $manager->persist($commande);
-            $manager->flush();
+            $commande_manager->save();
 
         return $this->redirectToRoute('recap', ['id' => $commande->getId()]);
         }
