@@ -37,8 +37,13 @@ class CommandeManager
 		$this->commande = new Commande();
 	}
 	
-	public function getCommande()
+	public function getCommande($id = null)
 	{
+		if (is_null($id)) {
+			$this->commande = new Commande ;
+		} else {
+			$this->commande = $this->CommandeRepository->find($id);
+		}
 		return $this->commande;
 	}
 

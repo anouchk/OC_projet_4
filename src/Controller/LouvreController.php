@@ -46,7 +46,6 @@ class LouvreController extends AbstractController
             // $commande = new Commande();
         // }
 
-        $commande_manager->initialize();
         $commande = $commande_manager->getCommande();
         
         $form = $this->createForm(CommandeType::class, $commande);
@@ -70,10 +69,9 @@ class LouvreController extends AbstractController
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recap(Request $request, ObjectManager $manager)
+    public function recap(Request $request, CommandeManager $commande_manager)
     {
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($request->attributes->get('id'));
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
        
         return $this->render('louvre/recap.html.twig', [
             'controller_name' => 'LouvreController',
