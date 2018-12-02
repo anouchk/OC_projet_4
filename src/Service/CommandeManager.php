@@ -35,10 +35,11 @@ class CommandeMannager
 
 	public function computePrice(Commande $commande)
 	{
+		$this->commande = $commande;
 		$prixTotal = 0;
 
-        foreach ($commande->getBillets() as $billet) {
-        	$age = $this->billetManager->getAge($billet, $commande);
+        foreach ($this->commande->getBillets() as $billet) {
+        	$age = $this->billetManager->getAge($billet, $this->commande);
             if ($billet->getTypeBillet() == 2) {
                 $billet->setPrix(8);
             } elseif 
@@ -57,6 +58,8 @@ class CommandeMannager
             // calcul du prix total de la commande
             $prixTotal = $prixTotal + $billet->getPrix();
         }
+
+        $this->commande->setPrix($prixTotal);
 
 	}
 }
