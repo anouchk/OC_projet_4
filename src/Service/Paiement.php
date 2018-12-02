@@ -3,7 +3,11 @@
 namespace App\Service;
 
 use App\Entity\Commande;
+use Stripe\Charge;
+use Stripe\Error\Card;
+use Stripe\Stripe;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class Paiement
 {
@@ -17,7 +21,7 @@ class Paiement
 		$this->request = $request_stack->getCurrentRequest();
 	}
 
-	public function paiement (Commande $commande, Request $request)
+	public function paiement (Commande $commande)
 	{
 		$token = $this->request->request->get('stripeToken');
 		$prix = $commande->getPrix();
@@ -25,7 +29,7 @@ class Paiement
 		Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
 
 		try {
-            Charge::create[(
+            Charge::create([
                 "amount" => $prixCommande * 100, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
@@ -34,9 +38,10 @@ class Paiement
             
             return true; 
 
-        catch(Card $e) {
+        } catch(Card $exception) {
             
             return false;
             // The card has been declined
+        };
 	}
 }

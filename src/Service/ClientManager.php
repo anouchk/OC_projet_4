@@ -3,6 +3,7 @@ namespace App\Service;
 
 use App\Entity\Client;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 class ClientManager 
 {
@@ -21,7 +22,7 @@ class ClientManager
 		$this->request = $request_stack->getCurrentRequest();
 	}
 
-	public function create(Request $request)
+	public function create()
 	{
 		$this->client = new Client($this->request->request->get('stripeEmail'));
 	}

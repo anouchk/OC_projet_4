@@ -106,7 +106,7 @@ class CommandeManager
 
 			return false;
 
-		};
+		}
 	}
 
 	private function paiementValidProcess()
