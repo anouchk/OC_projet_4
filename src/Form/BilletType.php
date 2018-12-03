@@ -37,7 +37,6 @@ class BilletType extends AbstractType
             ->add('tarifReduit', CheckboxType::class, [
                 'label'=>'Tarif réduit (étudiant, employé du musée, d’un service du ministère de la Culture, militaire. Sur justificatif.)'
             ])
-            ->add('commande')
         ;
     }
 
