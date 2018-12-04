@@ -36,7 +36,7 @@ class LouvreController extends AbstractController
         ]);
     }
 
-    // il faudra que je rajoute * @Route("/recap/{id}/modify, name="modification_commande")
+    // il faudra que je rajoute * @Route("/billeterie/{id}/modify, name="modification_commande")
     /**
      * @Route("/billetterie", name="billetterie")
      */
