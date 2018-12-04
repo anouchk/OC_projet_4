@@ -2,29 +2,27 @@
 namespace App\Service;
 
 use App\Entity\Client;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 
 class ClientManager 
 {
-	/**
-	 * @var Request
-	 */
-	private $request;
-
 	/**
 	 * @var Client
 	 */
 	private $client;
 
-	public function __construct(RequestStack $request_stack)
+    /**
+     * @var StripeEmailCatcher
+     */
+	private $stripeEmailCatcher;
+
+	public function __construct(StripeEmailCatcher $stripeEmailCatcher)
 	{
-		$this->request = $request_stack->getCurrentRequest();
+		$this->stripeEmailCatcher = $stripeEmailCatcher;
 	}
 
 	public function create()
 	{
-		$this->client = new Client($this->request->request->get('stripeEmail'));
+		$this->client = new Client($this->stripeEmailCatcher->getEmail());
 	}
 
 	public function getClient()
