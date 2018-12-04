@@ -84,7 +84,10 @@
                     var index = $wrapper.data('index');
 
                     // Je remplace '__name__' dans le HTML du prototype par un nombre basé sur le rang du billet dans le tableau de billets
-                    var newForm = billetprototype.replace(/__name__/g, index);
+                    var newForm = billetprototype
+                        .replace(/__name__/g, index)
+                        .replace(/__name__label__/g, 'Billet n°' + (index+1))
+                    ;
 
                     // j'incrémente l'index 
                     $wrapper.data('index', index + 1);
