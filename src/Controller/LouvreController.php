@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Service\MailService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Billet;
@@ -110,35 +111,10 @@ class LouvreController extends AbstractController
     /**
      * @Route("/confirmation/{id}", name="mail")
      */
-    public function mail(Request $request, \Swift_Mailer $mailer)
+    public function mail(Request $request, MailService $mail_service, CommandeManager $commande_manager)
     {
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($request->attributes->get('id'));
-
-        $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
-            ->setFrom('analutzky@gmail.com')
-            ->setTo('analutzky@gmail.com')
-            ->setBody(
-                $this->renderView(
-                    // templates/mail.html.twig
-                    'louvre/mail.html.twig',
-                    array('commande' => $commande)
-                ),
-                'text/html'
-            )
-            /*
-             * If you also want to include a plaintext version of the message
-            ->addPart(
-                $this->renderView(
-                    'mail.txt.twig',
-                    array('name' => $name)
-                ),
-                'text/plain'
-            )
-            */
-        ;
-
-        $mailer->send($message);
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
+        $mail_service->envoieConfirmationCommande($commande);
 
         return $this->render('louvre/bye.html.twig', [
             'controller_name' => 'LouvreController',

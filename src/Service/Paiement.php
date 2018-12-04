@@ -6,7 +6,6 @@ use App\Entity\Commande;
 use Stripe\Charge;
 use Stripe\Error\Card;
 use Stripe\Stripe;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class Paiement
@@ -16,7 +15,7 @@ class Paiement
 	 */
 	private $request;
 
-	public function __constructor(RequestStack $request_stack)
+	public function __construct(RequestStack $request_stack)
 	{
 		$this->request = $request_stack->getCurrentRequest();
 	}
@@ -30,7 +29,7 @@ class Paiement
 
 		try {
             Charge::create([
-                "amount" => $prixCommande * 100, // Amount in cents
+                "amount" => $commande->getPrix() * 100, // Amount in cents
                 "currency" => "eur",
                 "source" => $token,
                 "description" => "Paiement Stripe - Réservations Louvre"
