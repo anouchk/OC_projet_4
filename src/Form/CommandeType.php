@@ -23,6 +23,7 @@ class CommandeType extends AbstractType
                 CollectionType::class,
                 [
                     'entry_type' => BilletType::class, 
+                    'entry_options' => array('label' => false),
                     'allow_add' => true,
                     'allow_delete' => true,
                     'prototype' => true,
