@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Form\CommandeType;
 use App\Service\CommandeManager;
+use App\Service\MailService;
 
 class LouvreController extends AbstractController
 {
@@ -69,7 +70,7 @@ class LouvreController extends AbstractController
     /**
      * @Route("/recapitulatif/{id}", name="recap")
      */
-    public function recap(Request $request, CommandeManager $commande_manager)
+    public function recap(Request $request, CommandeManager $commande_manager, MailService $mail_service)
     {
         $commande = $commande_manager->getCommande($request->attributes->get('id'));
        
@@ -112,8 +113,7 @@ class LouvreController extends AbstractController
      */
     public function mail(Request $request, \Swift_Mailer $mailer)
     {
-        $repo = $this->getDoctrine()->getRepository(Commande::class);
-        $commande = $repo->find($request->attributes->get('id'));
+        $commande = $commande_manager->getCommande($request->attributes->get('id'));
 
         $message = (new \Swift_Message('Confirmation de réservation - Louvre'))
             ->setFrom('analutzky@gmail.com')
