@@ -24,7 +24,7 @@ class Paiement
 	public function paiement (Commande $commande)
 	{
 		$token = $this->request->request->get('stripeToken');
-		$prix = $commande->getPrix();
+		$prixCommande = $commande->getPrix();
 
 		Stripe::setApiKey("sk_test_aXFr9emkHBkD35pC6kAvXLi7");
 
