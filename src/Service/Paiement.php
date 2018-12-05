@@ -16,7 +16,7 @@ class Paiement
 	 */
 	private $request;
 
-	public function __constructor(RequestStack $request_stack)
+	public function __construct (RequestStack $request_stack)
 	{
 		$this->request = $request_stack->getCurrentRequest();
 	}
