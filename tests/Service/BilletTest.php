@@ -2,6 +2,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Billet;
+use App\Entity\Commande;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BilletTest extends KernelTestCase
@@ -26,5 +27,36 @@ class BilletTest extends KernelTestCase
     {
         $this->billet->setPrenom('toto');
         static::assertSame('toto', $this->billet->getPrenom());
+    }
+
+    public function testGetPays()
+    {
+        $this->billet->setPays('France');
+        static::assertSame('France', $this->billet->getPays());
+    }
+
+    public function testGetDateNaissance()
+    {
+        $dateNaissance = new \DateTime('1984-10-01');
+        $this->billet->setDateNaissance($dateNaissance);
+        static::assertEquals(new \DateTime('1984-10-01'), $this->billet->getDateNaissance());
+    }
+
+    public function testGetTarifReduit()
+    {
+        $this->billet->setTarifReduit(true);
+        static::assertSame(true, $this->billet->getTarifReduit());
+    }
+
+    // public function testGetCommande()
+    // {
+    //     $this->billet->setCommande(New Commande);
+    //     static::assertEquals(New Commande, $this->billet->getCommande());
+    // }
+
+    public function testGetPrix()
+    {
+        $this->billet->setPrix(12);
+        static::assertSame(12, $this->billet->getPrix());
     }
 } 
