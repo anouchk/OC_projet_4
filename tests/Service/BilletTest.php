@@ -39,7 +39,7 @@ class BilletTest extends KernelTestCase
     {
         $dateNaissance = new \DateTime('1984-10-01');
         $this->billet->setDateNaissance($dateNaissance);
-        static::assertEquals(new \DateTime('1984-10-01'), $this->billet->getDateNaissance());
+        static::assertInstanceOf(\DateTime::class, $this->billet->getDateNaissance());
     }
 
     public function testGetTarifReduit()
@@ -48,11 +48,11 @@ class BilletTest extends KernelTestCase
         static::assertSame(true, $this->billet->getTarifReduit());
     }
 
-    // public function testGetCommande()
-    // {
-    //     $this->billet->setCommande(New Commande);
-    //     static::assertEquals(New Commande, $this->billet->getCommande());
-    // }
+    public function testGetCommande()
+    {
+        $this->billet->setCommande(New Commande);
+        static::assertInstanceOf(Commande::class, $this->billet->getCommande());
+    }
 
     public function testGetPrix()
     {
