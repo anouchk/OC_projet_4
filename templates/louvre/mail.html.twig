@@ -12,20 +12,6 @@
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 
-		  <div class="collapse navbar-collapse" id="navbarColor01">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="{{ path('billetterie') }}">Billetterie</a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="{{ path('infospratiques') }}">Infos pratiques</a>
-		      </li>
-		    </ul>
-		  </div>
-
 		</nav>
 		<div class="container">
 			<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Louvre_Museum_icon_1.svg/550px-Louvre_Museum_icon_1.svg.png">
@@ -56,14 +42,14 @@
 			      {% elseif billet.typeBillet == 2 %}
 			      	<td>Demi-journée</td>
 			      {% endif %}
-			      <td> {{billet.prix}}</td>
+			      <td> {{billet.prix}} €</td>
 			    </tr>
 			    {% endfor %}
 			  </tbody>
 			</table> 
 
 
-			<h3> Total : {{commande.prix}} </h3>
+			<h3> Total : {{commande.prix}} €</h3>
 
 			<p>
 				<br>N'oubliez pas de vous munir de vos billets imprimés, et le cas échéant, de vos justificatifs de tarif réduit.
