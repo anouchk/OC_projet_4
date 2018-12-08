@@ -2,7 +2,7 @@
 {
 	margin-top : 10px;
 	padding : 10px;
-	background-color: #F8F8F8;
+	background-color: #b7d7e8;
 }
 
 .supprimer-billet
@@ -18,6 +18,6 @@
 
 .reserver
 {
-	padding : 20px;
-	width : 100%;
+	/*padding : 20px;
+	width : 100%;*/
 }
