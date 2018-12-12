@@ -72,6 +72,7 @@ class Commande
         $this->billets = new ArrayCollection();
         $this->reference = $this->random_reference();
         $this->paid = false;
+        $this->dateVisite = new \DateTime();
     }
 
     private function random_reference($length=6)
