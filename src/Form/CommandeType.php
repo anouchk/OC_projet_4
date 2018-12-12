@@ -16,7 +16,8 @@ class CommandeType extends AbstractType
     {
         $builder           
             ->add('dateVisite', DateType::class, [
-                'label'=>'Date de la visite'
+                'label'=>'Date de la visite',
+                'years' => ['2018','2019','2020','2021','2022','2023']
             ]) 
             ->add(
                 'billets', 
